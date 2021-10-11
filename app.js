@@ -36,7 +36,7 @@ const specs=swaggerJsDoc(options)
 // Mounting routes
 app.use('/products', require('./api/routes/productRoute'))
 app.use('/', require('./api/routes/userRoute'))
-app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(specs))
+app.use('/docs', swaggerUI.serve, swaggerUI.setup(specs))
 
 const server=app.listen(process.env.PORT, console.log(`Server running on port ${process.env.PORT}`.green.bold))
 
