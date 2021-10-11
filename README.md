@@ -51,3 +51,6 @@
 | /register | POST | Public | Register as a new user |
 | /login | POST | Public | Login as existing user |
 | /login | DELETE | Public | Delete an existing user |
+
+> Swagger Documentation can be found at http://localhost:3000/docs
+
