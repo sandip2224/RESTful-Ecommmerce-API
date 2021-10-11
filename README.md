@@ -7,6 +7,8 @@
 - Express.js: Minimal and flexible Node.js web application framework that provides a robust set of features for webapp development.
 - MongoDB Atlas: Primary database to store authenticated users and violation reports.
 
+> Note: Postman Collections can be found here: [Web API Collections](https://www.postman.com/collections/283eb1fc6b63d835e9f5)
+
 ## 🚩 How to Install Locally
 
 **1. Fork and clone this repository using**
