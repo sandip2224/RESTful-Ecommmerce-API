@@ -6,9 +6,60 @@ const jwt=require('jsonwebtoken')
 
 const userModel=require('../models/User')
 
-// @desc: User registration
-// @route: POST /register
-// @access: Public
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Authorization:
+ *       type: object
+ *       required:
+ *         - email
+ *         - password
+ *       properties:
+ *         email:
+ *           type: string
+ *           description: Email address required for registration
+ *         password:
+ *           type: string
+ *           description: Password required for registration
+ *     AuthResponse:
+ *       type: object
+ *       required:
+ *         - email
+ *         - password
+ *         - token
+ *       properties:
+ *         email:
+ *           type: string
+ *           description: Email address required for registration
+ *         password:
+ *           type: string
+ *           description: Password required for registration
+ *         token:
+ *           type: string
+ *           description: The auto-generated JWT after succesful authentication
+ */
+
+/**
+ * @swagger
+ * /register:
+ *   post:
+ *     summary: Create a new user
+ *     tags: [Users]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *               $ref: '#/components/schemas/Authorization'
+ *     responses:
+ *       200:
+ *         description: The user was successfully created
+ *       401:
+ *         description: The user already exists
+ *       500:
+ *         description: Internal server error
+ */
 
 router.post('/register', (req, res)=>{
     userModel.find({email: req.body.email}).exec()
@@ -48,9 +99,30 @@ router.post('/register', (req, res)=>{
     })
 })
 
-// @desc: User login
-// @route: POST /login
-// @access: Public
+/**
+ * @swagger
+ * /login:
+ *   post:
+ *     summary: Login as existing user
+ *     tags: [Users]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *               $ref: '#/components/schemas/Authorization'
+ *     responses:
+ *       200:
+ *         description: Authentication successful
+ *         contents:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/AuthResponse'
+ *       404:
+ *         description: User does not exist
+ *       500:
+ *         description: Internal server error
+ */
 
 router.post('/login', (req, res)=>{
     userModel.find({email: req.body.email}).exec()
@@ -95,9 +167,25 @@ router.post('/login', (req, res)=>{
     })
 })
 
-// @desc: Delete existing user
-// @route: DELETE /:userId
-// @access: Public
+/**
+ * @swagger
+ * /{userId}:
+ *   delete:
+ *     summary: Delete an existing user with userId
+ *     tags: [Users]
+ *     parameters:
+ *       - in: path
+ *         name: userId
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The user id to be deleted
+ *     responses:
+ *       200:
+ *         description: The user has been successfully deleted
+ *       500:
+ *         description: Internal Server Error
+ */
 
 router.delete('/:userId', (req, res)=>{
     userModel.remove({_id: req.params.userId}).exec()
