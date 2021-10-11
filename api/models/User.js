@@ -1,5 +1,6 @@
 const mongoose=require('mongoose')
 
+// Create user schema for authentication
 const userSchema=mongoose.Schema({
     email: {
         type: String,
