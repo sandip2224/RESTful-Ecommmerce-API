@@ -46,12 +46,11 @@ const errormsg = (err) => {
  *           description: The auto-generated JWT after successful login
  */
 
-
 /**
  * @swagger
  * tags:
  *   name: Products
- *   description: The products managing API
+ *   description: The shopping REST API
  */
 
 /**
@@ -72,26 +71,6 @@ const errormsg = (err) => {
  *       500:
  *         description: Internal Server Error
  */
-
-router.get('/', (req, res) => {
-	productModel.find().then(docs => {
-		const response = {
-			count: docs.length,
-			products: docs.map(doc => {
-				return {
-					name: doc.name,
-					price: doc.price,
-					_id: doc._id,
-					request: {
-						type: 'GET',
-						url: 'http://localhost:3000/products/' + doc._id
-					}
-				}
-			})
-		}
-		res.status(200).json(response)
-	}).catch(errormsg)
-})
 
 /**
  * @swagger
@@ -119,28 +98,6 @@ router.get('/', (req, res) => {
  *         description: Internal Server Error
  */
 
-router.get('/:productId', (req, res) => {
-	const id = req.params.productId;
-	productModel.findById(id).then(doc => {
-		if (doc) {
-			res.status(200).json({
-				name: doc.name,
-				price: doc.price,
-				_id: doc._id,
-				request: {
-					type: 'GET',
-					url: 'http://localhost:3000/products/' + doc._id
-				}
-			})
-		}
-		else {
-			res.status(404).json({
-				message: 'No valid product found for given ID'
-			})
-		}
-	}).catch(errormsg)
-})
-
 /**
  * @swagger
  * /products:
@@ -160,65 +117,110 @@ router.get('/:productId', (req, res) => {
  *         description: Internal server error
  */
 
-router.post('/', checkAuth, (req, res) => {
-	const product = new productModel({
-		name: req.body.name,
-		price: req.body.price
-	})
-	product.save().then((doc) => {
-		res.status(201).json({
-			message: 'New Product Added Successfully!!',
-			createdProduct: {
-				name: doc.name,
-				price: doc.price,
-				_id: doc._id,
-				request: {
-					type: 'GET',
-					url: 'http://localhost:3000/products/' + doc._id
-				}
+router.route('/')
+	.get((req, res) => {
+		productModel.find().then(docs => {
+			const response = {
+				count: docs.length,
+				products: docs.map(doc => {
+					return {
+						name: doc.name,
+						price: doc.price,
+						_id: doc._id,
+						request: {
+							type: 'GET',
+							url: 'http://localhost:3000/products/' + doc._id
+						}
+					}
+				})
 			}
-		})
-	}).catch(errormsg)
-})
+			res.status(200).json(response)
+		}).catch(errormsg)
+	})
 
-router.patch('/:productId', (req, res) => {
-	const id = req.params.productId
-	productModel.findByIdAndUpdate(id, { $set: req.body }, { new: true })
-		.then(doc => {
-			res.status(200).json({
-				message: "Product updated successfully!!",
-				id: id,
-				request: {
-					type: 'GET',
-					url: 'http://localhost:3000/products/' + id
+	.post(checkAuth, (req, res) => {
+		const product = new productModel({
+			name: req.body.name,
+			price: req.body.price
+		})
+		product.save().then((doc) => {
+			res.status(201).json({
+				message: 'New Product Added Successfully!!',
+				createdProduct: {
+					name: doc.name,
+					price: doc.price,
+					_id: doc._id,
+					request: {
+						type: 'GET',
+						url: 'http://localhost:3000/products/' + doc._id
+					}
 				}
 			})
 		}).catch(errormsg)
-})
+	})
 
-router.delete('/', (req, res) => {
-	productModel.deleteMany().then(doc => {
-		res.status(200).json({
-			message: "All products deleted successfully!!",
-			request: {
-				type: 'POST',
-				url: 'http://localhost:3000/products/'
-			}
-		})
-	}).catch(errormsg)
-})
+	.delete((req, res) => {
+		productModel.deleteMany().then(doc => {
+			res.status(200).json({
+				message: "All products deleted successfully!!",
+				request: {
+					type: 'POST',
+					url: 'http://localhost:3000/products/'
+				}
+			})
+		}).catch(errormsg)
+	})
 
-router.delete('/:productId', (req, res) => {
-	const id = req.params.id
-	productModel.findByIdAndDelete(id).then(doc => {
-		res.status(200).json({
-			message: "Product deleted successfully!!",
-			request: {
-				type: 'GET',
-				url: 'http://localhost:3000/products/'
+
+router.route('/:productId')
+	.get((req, res) => {
+		const id = req.params.productId;
+		productModel.findById(id).then(doc => {
+			if (doc) {
+				res.status(200).json({
+					name: doc.name,
+					price: doc.price,
+					_id: doc._id,
+					request: {
+						type: 'GET',
+						url: 'http://localhost:3000/products/' + doc._id
+					}
+				})
 			}
-		})
-	}).catch(errormsg)
-})
+			else {
+				res.status(404).json({
+					message: 'No valid product found for given ID'
+				})
+			}
+		}).catch(errormsg)
+	})
+
+	.patch((req, res) => {
+		const id = req.params.productId
+		productModel.findByIdAndUpdate(id, { $set: req.body }, { new: true })
+			.then(doc => {
+				res.status(200).json({
+					message: "Product updated successfully!!",
+					id: id,
+					request: {
+						type: 'GET',
+						url: 'http://localhost:3000/products/' + id
+					}
+				})
+			}).catch(errormsg)
+	})
+
+	.delete((req, res) => {
+		const id = req.params.id
+		productModel.findByIdAndDelete(id).then(doc => {
+			res.status(200).json({
+				message: "Product deleted successfully!!",
+				request: {
+					type: 'GET',
+					url: 'http://localhost:3000/products/'
+				}
+			})
+		}).catch(errormsg)
+	})
 
 module.exports = router
