@@ -13,40 +13,55 @@ const errormsg = (err) => {
 }
 
 router.get('/', (req, res) => {
-    orderModel.find().exec().then(docs => {
-        res.status(200).json({
-            count: docs.length,
-            orders: docs.map(doc => {
-                return {
-                    _id: doc._id,
-                    productId: doc.productId,
-                    quantity: doc.quantity,
-                    request: {
-                        type: 'GET',
-                        url: 'http://localhost:3000/orders/' + doc._id
+    orderModel.find().populate('productId')
+        .exec()
+        .then(docs => {
+            res.status(200).json({
+                count: docs.length,
+                orders: docs.map(doc => {
+                    return {
+                        _id: doc._id,
+                        product: {
+                            id: doc.productId._id,
+                            name: doc.productId.name,
+                            price: doc.productId.price
+                        },
+                        quantity: doc.quantity,
+                        request: {
+                            type: 'GET',
+                            url: 'http://localhost:3000/orders/' + doc._id
+                        }
                     }
-                }
+                })
             })
-        })
-    }).catch(errormsg)
+        }).catch(errormsg)
 })
 
 router.get('/:orderId', (req, res) => {
     if (mongoose.isValidObjectId(req.params.orderId)) {
-        orderModel.findById(req.params.orderId).exec().then(doc => {
-            if (!doc) {
-                return res.status(404).json({
-                    message: 'Order not found!!'
-                })
-            }
-            res.status(200).json({
-                order: doc,
-                request: {
-                    type: 'GET',
-                    url: 'http://localhost:3000/orders'
+        orderModel.findById(req.params.orderId).populate('productId')
+            .exec().then(doc => {
+                if (!doc) {
+                    return res.status(404).json({
+                        message: 'Order not found!!'
+                    })
                 }
-            })
-        }).catch(errormsg)
+                res.status(200).json({
+                    order: {
+                        _id: doc._id,
+                        product: {
+                            id: doc.productId._id,
+                            name: doc.productId.name,
+                            price: doc.productId.price
+                        },
+                        quantity: doc.quantity
+                    },
+                    request: {
+                        type: 'GET',
+                        url: 'http://localhost:3000/orders'
+                    }
+                })
+            }).catch(errormsg)
     }
     else {
         return res.status(422).json({
@@ -83,6 +98,28 @@ router.post('/', (req, res) => {
             })
         })
         .catch(errormsg)
+})
+
+router.patch('/:orderId', (req, res) => {
+    const uid = req.params.orderId
+    if (mongoose.isValidObjectId(uid)) {
+        orderModel.findByIdAndUpdate(uid, { $set: req.body }, { new: true })
+            .then(doc => {
+                res.status(200).json({
+                    message: "Order updated successfully!!",
+                    _id: uid,
+                    request: {
+                        type: 'GET',
+                        url: 'http://localhost:3000/orders/' + uid
+                    }
+                })
+            }).catch(errormsg)
+    }
+    else {
+        return res.status(422).json({
+            message: 'Order ID is not valid!!'
+        })
+    }
 })
 
 router.delete('/:orderId', (req, res) => {
