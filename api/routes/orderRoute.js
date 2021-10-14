@@ -123,20 +123,27 @@ router.patch('/:orderId', checkAuth, (req, res) => {
 })
 
 router.delete('/:orderId', checkAuth, (req, res) => {
-    orderModel.deleteOne({ _id: req.params.orderId }).then(doc => {
-        res.status(200).json({
-            message: 'Order deleted successfully',
-            request: {
-                type: 'POST',
-                url: 'http://localhost:3000/orders',
-                body: {
-                    productId: 'ID',
-                    quantity: 'Number'
+    const id = req.params.orderId
+    if (mongoose.isValidObjectId(id)) {
+        orderModel.deleteOne({ _id: id }).then(doc => {
+            res.status(200).json({
+                message: 'Order deleted successfully',
+                request: {
+                    type: 'POST',
+                    url: 'http://localhost:3000/orders',
+                    body: {
+                        productId: 'ID',
+                        quantity: 'Number'
+                    }
                 }
-            }
+            })
+        }).catch(errormsg)
+    }
+    else {
+        return res.status(422).json({
+            message: 'Order ID is not valid!!'
         })
-    })
-        .catch(errormsg)
+    }
 })
 
 module.exports = router

@@ -1,65 +1,127 @@
 const express = require('express')
 const router = express.Router();
+const mongoose = require('mongoose')
 
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 
 const userModel = require('../models/User')
 
-/**
- * @swagger
- * components:
- *   schemas:
- *     Authorization:
- *       type: object
- *       required:
- *         - email
- *         - password
- *       properties:
- *         email:
- *           type: string
- *           description: Email address required for registration
- *         password:
- *           type: string
- *           description: Password required for registration
- *     AuthResponse:
- *       type: object
- *       required:
- *         - email
- *         - password
- *         - token
- *       properties:
- *         email:
- *           type: string
- *           description: Email address required for registration
- *         password:
- *           type: string
- *           description: Password required for registration
- *         token:
- *           type: string
- *           description: The auto-generated JWT after succesful authentication
- */
+const errormsg = (err) => {
+    res.status(500).json({
+        error: err
+    })
+}
 
-/**
- * @swagger
- * /register:
- *   post:
- *     summary: Create a new user
- *     tags: [Users]
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *               $ref: '#/components/schemas/Authorization'
- *     responses:
- *       200:
- *         description: The user was successfully created
- *       401:
- *         description: The user already exists
- *       500:
- *         description: Internal server error
- */
+router.get('/', (req, res) => {
+    userModel.find().exec().then(docs => {
+        res.status(200).json({
+            count: docs.length,
+            users: docs.map(doc => {
+                return {
+                    email: doc.email,
+                    password: doc.password,
+                    _id: doc._id,
+                    request: {
+                        type: 'GET',
+                        url: 'http://localhost:3000/api/users/' + doc._id
+                    }
+                }
+            })
+        })
+    }).catch(errormsg)
+})
+
+
+router.get('/:userId', (req, res) => {
+    if (mongoose.isValidObjectId(req.params.userId)) {
+        userModel.findById(req.params.userId).exec().then(doc => {
+            if (doc) {
+                res.status(200).json({
+                    email: doc.email,
+                    password: doc.password,
+                    _id: doc._id,
+                    request: {
+                        type: 'GET',
+                        url: 'http://localhost:3000/api/users/login',
+                        body: {
+                            email: "String",
+                            password: "String",
+                            token: "String"
+                        }
+                    }
+                })
+            }
+            else {
+                res.status(404).json({
+                    message: 'No valid user found for given ID'
+                })
+            }
+        }).catch(errormsg)
+    }
+    else {
+        return res.status(422).json({
+            message: 'User ID is not valid!!'
+        })
+    }
+})
+
+router.patch('/:userId', (req, res) => {
+    const id = req.params.userId
+    let pwd = req.body.password
+    bcrypt.hash(pwd, 10, (err, hash) => {
+        if (err) {
+            return res.status(500).json({
+                error: err
+            })
+        }
+        else {
+            req.body.password = hash
+            if (mongoose.isValidObjectId(id)) {
+                userModel.findByIdAndUpdate(id, { $set: req.body }, { new: true })
+                    .then(doc => {
+                        res.status(200).json({
+                            message: "User updated successfully!!",
+                            id: id,
+                            request: {
+                                type: 'GET',
+                                url: 'http://localhost:3000/api/users/' + id
+                            }
+                        })
+                    }).catch(errormsg)
+            }
+            else {
+                return res.status(422).json({
+                    message: 'User ID is not valid!!'
+                })
+            }
+        }
+    })
+})
+
+router.delete('/:userId', (req, res) => {
+    if (mongoose.isValidObjectId(req.params.userId)) {
+        userModel.deleteOne({ _id: req.params.userId }).exec()
+            .then(user => {
+                res.status(200).json({
+                    message: 'User deleted successfully!!',
+                    request: {
+                        type: 'POST',
+                        url: 'http://localhost:3000/api/users/register',
+                        body: {
+                            email: 'String',
+                            password: 'String'
+                        }
+                    }
+                })
+            }).catch(errormsg)
+    }
+    else {
+        return res.status(422).json({
+            message: 'User ID is not valid!!'
+        })
+    }
+})
 
 router.post('/register', (req, res) => {
     userModel.find({ email: req.body.email }).exec()
@@ -81,48 +143,16 @@ router.post('/register', (req, res) => {
                             email: req.body.email,
                             password: hash
                         })
-                        user.save()
-                            .then(result => {
-                                res.status(201).json({
-                                    message: 'User Registered Successfully!!'
-                                })
+                        user.save().then(result => {
+                            res.status(201).json({
+                                message: 'User Registered Successfully!!'
                             })
-                            .catch(err => {
-                                console.log(err)
-                                res.status(500).json({
-                                    error: err
-                                })
-                            })
+                        }).catch(errormsg)
                     }
                 })
             }
         })
 })
-
-/**
- * @swagger
- * /login:
- *   post:
- *     summary: Login as existing user
- *     tags: [Users]
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *               $ref: '#/components/schemas/Authorization'
- *     responses:
- *       200:
- *         description: Authentication successful
- *         contents:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/AuthResponse'
- *       404:
- *         description: User does not exist
- *       500:
- *         description: Internal server error
- */
 
 router.post('/login', (req, res) => {
     userModel.find({ email: req.body.email }).exec()
@@ -158,48 +188,7 @@ router.post('/login', (req, res) => {
                     message: 'Login failed!!'
                 })
             })
-        })
-        .catch(err => {
-            console.log(err)
-            res.status(500).json({
-                error: err
-            })
-        })
-})
-
-/**
- * @swagger
- * /{userId}:
- *   delete:
- *     summary: Delete an existing user with userId
- *     tags: [Users]
- *     parameters:
- *       - in: path
- *         name: userId
- *         schema:
- *           type: string
- *         required: true
- *         description: The user id to be deleted
- *     responses:
- *       200:
- *         description: The user has been successfully deleted
- *       500:
- *         description: Internal Server Error
- */
-
-router.delete('/:userId', (req, res) => {
-    userModel.remove({ _id: req.params.userId }).exec()
-        .then(user => {
-            res.status(200).json({
-                message: 'User Deleted Successfully!!'
-            })
-        })
-        .catch(err => {
-            console.log(err)
-            res.status(500).json({
-                error: err
-            })
-        })
+        }).catch(errormsg)
 })
 
 module.exports = router
