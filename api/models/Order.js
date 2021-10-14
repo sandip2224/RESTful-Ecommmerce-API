@@ -12,6 +12,10 @@ const orderSchema = mongoose.Schema({
     },
     total: {
         type: Number
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now
     }
 })
 module.exports = mongoose.model('orderModel', orderSchema)
