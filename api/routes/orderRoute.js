@@ -28,6 +28,7 @@ router.get('/', checkAuth, (req, res) => {
                             price: doc.productId.price
                         },
                         quantity: doc.quantity,
+                        totalPrice: doc.productId.price * doc.quantity,
                         request: {
                             type: 'GET',
                             url: 'http://localhost:3000/orders/' + doc._id
@@ -55,7 +56,8 @@ router.get('/:orderId', checkAuth, (req, res) => {
                             name: doc.productId.name,
                             price: doc.productId.price
                         },
-                        quantity: doc.quantity
+                        quantity: doc.quantity,
+                        totalPrice: doc.productId.price * doc.quantity,
                     },
                     request: {
                         type: 'GET',

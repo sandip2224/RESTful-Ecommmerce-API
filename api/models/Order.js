@@ -9,6 +9,9 @@ const orderSchema = mongoose.Schema({
     quantity: {
         type: Number,
         default: 1
+    },
+    total: {
+        type: Number
     }
 })
 module.exports = mongoose.model('orderModel', orderSchema)
