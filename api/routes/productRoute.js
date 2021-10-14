@@ -124,9 +124,9 @@ router.route('/')
 				count: docs.length,
 				products: docs.map(doc => {
 					return {
+						_id: doc._id,
 						name: doc.name,
 						price: doc.price,
-						_id: doc._id,
 						request: {
 							type: 'GET',
 							url: 'http://localhost:3000/products/' + doc._id

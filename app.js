@@ -35,6 +35,7 @@ const specs = swaggerJsDoc(options)
 
 // Mounting routes
 app.use('/products', require('./api/routes/productRoute'))
+app.use('/orders', require('./api/routes/orderRoute'))
 app.use('/', require('./api/routes/userRoute'))
 app.use('/docs', swaggerUI.serve, swaggerUI.setup(specs))
 
