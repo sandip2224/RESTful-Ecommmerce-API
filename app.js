@@ -13,8 +13,8 @@ app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
 
 // Mounting routes
-app.use('/products', require('./api/routes/productRoute'))
-app.use('/orders', require('./api/routes/orderRoute'))
+app.use('/api/products', require('./api/routes/productRoute'))
+app.use('/api/orders', require('./api/routes/orderRoute'))
 app.use('/api/users', require('./api/routes/userRoute'))
 
 const server = app.listen(process.env.PORT, console.log(`Server running on port ${process.env.PORT}`.green.bold))
