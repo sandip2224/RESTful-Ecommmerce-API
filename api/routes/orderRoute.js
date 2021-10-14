@@ -28,7 +28,7 @@ router.get('/', checkAuth, (req, res) => {
                             price: doc.productId.price
                         },
                         quantity: doc.quantity,
-                        totalPrice: doc.productId.price * doc.quantity,
+                        totalPrice: doc.totalPrice,
                         request: {
                             type: 'GET',
                             url: 'http://localhost:3000/orders/' + doc._id
@@ -57,7 +57,7 @@ router.get('/:orderId', checkAuth, (req, res) => {
                             price: doc.productId.price
                         },
                         quantity: doc.quantity,
-                        totalPrice: doc.productId.price * doc.quantity,
+                        totalPrice: doc.totalPrice
                     },
                     request: {
                         type: 'GET',
@@ -82,7 +82,8 @@ router.post('/', checkAuth, (req, res) => {
         }
         const order = new orderModel({
             productId: req.body.productId,
-            quantity: req.body.quantity
+            quantity: req.body.quantity,
+            totalPrice: req.body.productId * req.body.quantity
         })
         return order.save()
     })
@@ -91,8 +92,9 @@ router.post('/', checkAuth, (req, res) => {
                 message: 'Order created successfully!',
                 createdOrder: {
                     productId: result.productId,
-                    quantity: result.quantity
+                    quantity: result.quantity,
                 },
+                totalPrice: result.totalPrice,
                 _id: result._id,
                 request: {
                     type: "GET",
