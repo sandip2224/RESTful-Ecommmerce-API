@@ -159,7 +159,7 @@ router.route('/')
 		}).catch(errormsg)
 	})
 
-	.delete((req, res) => {
+	.delete(checkAuth, (req, res) => {
 		productModel.deleteMany().then(doc => {
 			res.status(200).json({
 				message: "All products deleted successfully!!",
@@ -195,7 +195,7 @@ router.route('/:productId')
 		}).catch(errormsg)
 	})
 
-	.patch((req, res) => {
+	.patch(checkAuth, (req, res) => {
 		const id = req.params.productId
 		productModel.findByIdAndUpdate(id, { $set: req.body }, { new: true })
 			.then(doc => {
@@ -210,7 +210,7 @@ router.route('/:productId')
 			}).catch(errormsg)
 	})
 
-	.delete((req, res) => {
+	.delete(checkAuth, (req, res) => {
 		const id = req.params.id
 		productModel.findByIdAndDelete(id).then(doc => {
 			res.status(200).json({

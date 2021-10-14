@@ -12,7 +12,7 @@ const errormsg = (err) => {
     })
 }
 
-router.get('/', (req, res) => {
+router.get('/', checkAuth, (req, res) => {
     orderModel.find().populate('productId')
         .exec()
         .then(docs => {
@@ -37,7 +37,7 @@ router.get('/', (req, res) => {
         }).catch(errormsg)
 })
 
-router.get('/:orderId', (req, res) => {
+router.get('/:orderId', checkAuth, (req, res) => {
     if (mongoose.isValidObjectId(req.params.orderId)) {
         orderModel.findById(req.params.orderId).populate('productId')
             .exec().then(doc => {
@@ -70,7 +70,7 @@ router.get('/:orderId', (req, res) => {
     }
 })
 
-router.post('/', (req, res) => {
+router.post('/', checkAuth, (req, res) => {
     productModel.findById(req.body.productId).then(doc => {
         if (!doc) {
             return res.status(404).json({
@@ -100,7 +100,7 @@ router.post('/', (req, res) => {
         .catch(errormsg)
 })
 
-router.patch('/:orderId', (req, res) => {
+router.patch('/:orderId', checkAuth, (req, res) => {
     const uid = req.params.orderId
     if (mongoose.isValidObjectId(uid)) {
         orderModel.findByIdAndUpdate(uid, { $set: req.body }, { new: true })
@@ -122,7 +122,7 @@ router.patch('/:orderId', (req, res) => {
     }
 })
 
-router.delete('/:orderId', (req, res) => {
+router.delete('/:orderId', checkAuth, (req, res) => {
     orderModel.deleteOne({ _id: req.params.orderId }).then(doc => {
         res.status(200).json({
             message: 'Order deleted successfully',
