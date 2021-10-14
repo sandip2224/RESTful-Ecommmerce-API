@@ -5,6 +5,7 @@ const mongoose = require('mongoose')
 const orderModel = require('../models/Order')
 const productModel = require('../models/Product')
 const checkAuth = require('../middleware/checkAuth')
+const isAdmin = require('../middleware/isAdmin')
 
 const errormsg = (err) => {
     res.status(500).json({

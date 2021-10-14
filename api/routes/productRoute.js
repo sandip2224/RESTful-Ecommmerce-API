@@ -3,6 +3,7 @@ const router = express.Router()
 
 const productModel = require('../models/Product')
 const checkAuth = require('../middleware/checkAuth')
+const isAdmin = require('../middleware/isAdmin')
 
 const errormsg = (err) => {
 	res.status(500).json({
@@ -31,7 +32,7 @@ router.route('/')
 		}).catch(errormsg)
 	})
 
-	.post(checkAuth, (req, res) => {
+	.post(checkAuth, isAdmin, (req, res) => {
 		const product = new productModel({
 			name: req.body.name,
 			price: req.body.price
@@ -52,7 +53,7 @@ router.route('/')
 		}).catch(errormsg)
 	})
 
-	.delete(checkAuth, (req, res) => {
+	.delete(checkAuth, isAdmin, (req, res) => {
 		productModel.deleteMany().then(doc => {
 			res.status(200).json({
 				message: "All products deleted successfully!!",
@@ -95,7 +96,7 @@ router.route('/:productId')
 		}
 	})
 
-	.patch(checkAuth, (req, res) => {
+	.patch(checkAuth, isAdmin, (req, res) => {
 		const id = req.params.productId
 		if (mongoose.isValidObjectId(id)) {
 			productModel.findByIdAndUpdate(id, { $set: req.body }, { new: true })
@@ -117,7 +118,7 @@ router.route('/:productId')
 		}
 	})
 
-	.delete(checkAuth, (req, res) => {
+	.delete(checkAuth, isAdmin, (req, res) => {
 		const id = req.params.productId
 		if (mongoose.isValidObjectId(id)) {
 			productModel.findByIdAndDelete(id).then(doc => {

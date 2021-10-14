@@ -21,6 +21,7 @@ router.get('/', (req, res) => {
                 return {
                     email: doc.email,
                     password: doc.password,
+                    isAdmin: doc.isAdmin,
                     _id: doc._id,
                     request: {
                         type: 'GET',
@@ -40,6 +41,7 @@ router.get('/:userId', (req, res) => {
                 res.status(200).json({
                     email: doc.email,
                     password: doc.password,
+                    isAdmin: doc.isAdmin,
                     _id: doc._id,
                     request: {
                         type: 'GET',
@@ -141,7 +143,8 @@ router.post('/register', (req, res) => {
                     else {
                         const user = new userModel({
                             email: req.body.email,
-                            password: hash
+                            password: hash,
+                            isAdmin: req.body.isAdmin
                         })
                         user.save().then(result => {
                             res.status(201).json({
@@ -173,6 +176,7 @@ router.post('/login', (req, res) => {
                         {
                             email: user[0].email,
                             userId: user[0]._id,
+                            isAdmin: user[0].isAdmin
                         },
                         process.env.JWT_KEY,
                         {
