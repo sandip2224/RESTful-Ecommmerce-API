@@ -1,11 +1,11 @@
-# WEB API 🔧
+# Shopping REST API �🛒
 
 ## 🛠 Tech Stack Used
 
 #### Backend
-- Node.js: JavaScript runtime built on Chrome's V8 JavaScript engine.
-- Express.js: Minimal and flexible Node.js web application framework that provides a robust set of features for webapp development.
-- MongoDB Atlas: Primary database to store authenticated users and violation reports.
+- Node.js
+- Express.js
+- MongoDB Atlas
 
 > Note: Postman Collections can be found here: [Web API Collections](https://www.postman.com/collections/283eb1fc6b63d835e9f5)
 
@@ -14,8 +14,8 @@
 **1. Fork and clone this repository using**
 
    ```
-   git clone https://github.com/sandip2224/NxtGenEsports-REST-API.git
-   cd NxtGenEsports-REST-API/
+   git clone https://github.com/sandip2224/My-Shopping-REST-API.git
+   cd My-Shopping-REST-API/
    ```  
    
 **2. Install required dependencies and dev dependency using**  
@@ -29,7 +29,7 @@
 
    ```bash
    MONGO_URI=<Your_Unique_MongoDB_Cluster_URL>
-   PORT=<Local_Express_Port_Number>
+   PORT=<Local_Server_Port_Number>
    JWT_KEY=<Your_Private_JWT_Key>
    ```  
  **4. Start the server locally using**
@@ -42,6 +42,21 @@
    npm run start
    ```  
 ## 🔱 API Endpoints
+
+### Products
+
+```
+GET /api/orders
+```
+
+### Orders
+
+### Users
+
+### Register
+
+### Login
+
 
 | Endpoints | Request | Access | Description |
 |-|-|-|-|
