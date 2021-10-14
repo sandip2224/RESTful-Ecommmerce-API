@@ -1,14 +1,14 @@
-const mongoose=require('mongoose')
+const mongoose = require('mongoose')
 
 // Create user schema for authentication
-const userSchema=mongoose.Schema({
+const userSchema = mongoose.Schema({
     email: {
         type: String,
         required: true,
         unique: true,
         match: /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
     },
-    password: {type: String, required: true}
+    password: { type: String, required: true }
 })
 
-module.exports=mongoose.model('userModel', userSchema)
+module.exports = mongoose.model('userModel', userSchema)
