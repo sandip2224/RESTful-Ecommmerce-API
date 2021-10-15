@@ -12,7 +12,7 @@
 #### Fork and clone this repository using
 
    ```bash
-   git clone https://github.com/sandip2224/My-Shopping-REST-API.git
+   git clone https://github.com/sandip2224/EcommerceX-REST-API.git
    ```   
 #### Install dependencies and dev dependency using
 
