@@ -16,6 +16,11 @@ const orderSchema = mongoose.Schema({
     createdAt: {
         type: Date,
         default: Date.now
+    },
+    paymentStatus:{
+        type: String,
+        enum: ['PENDING', 'CONFIRMED'],
+        default: 'PENDING'
     }
 })
 module.exports = mongoose.model('orderModel', orderSchema)

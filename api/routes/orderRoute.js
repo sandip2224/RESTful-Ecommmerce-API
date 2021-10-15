@@ -30,9 +30,10 @@ router.get('/', checkAuth, (req, res) => {
                         quantity: doc.quantity,
                         totalPrice: doc.totalPrice,
                         createdAt: doc.createdAt,
+                        paymentStatus: doc.paymentStatus,
                         request: {
                             type: 'GET',
-                            url: 'http://localhost:3000/orders/' + doc._id
+                            url: 'http://localhost:3000/api/orders/' + doc._id
                         }
                     }
                 })
@@ -60,10 +61,11 @@ router.get('/:orderId', checkAuth, (req, res) => {
                         quantity: doc.quantity,
                         totalPrice: doc.totalPrice,
                         createdAt: doc.createdAt,
+                        paymentStatus: doc.paymentStatus,
                     },
                     request: {
                         type: 'GET',
-                        url: 'http://localhost:3000/orders'
+                        url: 'http://localhost:3000/api/orders'
                     }
                 })
             }).catch(errormsg)
@@ -98,10 +100,11 @@ router.post('/', checkAuth, (req, res) => {
                 },
                 totalPrice: result.totalPrice,
                 createdAt: result.createdAt,
+                paymentStatus: result.paymentStatus,
                 _id: result._id,
                 request: {
                     type: "GET",
-                    url: "http://localhost:3000/orders/" + result._id
+                    url: "http://localhost:3000/api/orders/" + result._id
                 }
             })
         })
@@ -118,7 +121,7 @@ router.patch('/:orderId', checkAuth, (req, res) => {
                     _id: uid,
                     request: {
                         type: 'GET',
-                        url: 'http://localhost:3000/orders/' + uid
+                        url: 'http://localhost:3000/api/orders/' + uid
                     }
                 })
             }).catch(errormsg)
@@ -138,7 +141,7 @@ router.delete('/:orderId', checkAuth, (req, res) => {
                 message: 'Order deleted successfully',
                 request: {
                     type: 'POST',
-                    url: 'http://localhost:3000/orders',
+                    url: 'http://localhost:3000/api/orders',
                     body: {
                         productId: 'ID',
                         quantity: 'Number'
