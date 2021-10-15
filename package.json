@@ -1,7 +1,7 @@
 {
   "name": "EcommerceX-REST_API",
   "version": "1.0.0",
-  "description": "Basic Web API for authentication",
+  "description": "Full-fledged E-commerce backend architecture REST API",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
