@@ -1,13 +1,13 @@
-## E-CommerceX REST API 🛒
+<h2 align="center">E-CommerceX REST API 🛒</h2>
 
-### 🔄 Built with
+## 🔄 Built with
 
 - NodeJS
 - ExpressJS
 - MongoDB Atlas
 - JavaScript
 
-### 🚩 Start API
+## 🚩 How to install API
 
 #### Fork and clone this repository using
 
@@ -39,9 +39,9 @@
    npm run dev
    ```
    
-### 🔱 API Endpoints
+## 🔱 API Endpoints
 
-#### Products
+### Products
 
 ```bash
 GET    /api/products
@@ -52,7 +52,7 @@ DELETE /api/products/:productId
 DELETE /api/products
 ```
 
-#### Orders
+### Orders
 To manage user order details:
 
 ```bash
@@ -73,7 +73,7 @@ PATCH  /api/users/:userId
 DELETE /api/users/:userId
 ```
 
-#### Payments
+### Payments
 To process pending payments on existing orders:
 
 ```bash
@@ -81,7 +81,7 @@ GET  /api/payments
 POST /api/payments/:orderId
 ```
 
-#### Register
+### Register
 To register a new user before login:
 
 ```bash
@@ -94,9 +94,12 @@ To login a user and generate a JWT token for accessing protected routes:
 ```bash
 POST /api/users/login
 ```
-### 🔍 UML Class Diagram
+## 🔍 UML Class Diagram
 
 ![UML Diagram](media/uml.png)
 
-> Swagger Documentation can be found at http://localhost:3000/docs
+## 🎴 License
 
+Distributed under the MIT License. See `LICENSE` for more information.
+
+### 👩‍💻 Project Created & Maintained By - [Sandipan Das](https://linkedin.com/in/sandipan0164)
