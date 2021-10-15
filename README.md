@@ -94,7 +94,8 @@ To login a user and generate a JWT token for accessing protected routes:
 ```bash
 POST /api/users/login
 ```
-> Note: Postman documentation can be found here: [api.sandip2224.in/ecommercex](https://documenter.getpostman.com/view/12943951/UV5WCHo2)
+
+> Note: Postman documentation can be found here: [api.sandip2224.in/ecommercex](https://documenter.getpostman.com/view/12943951/UV5WCHsP)
 
 ## 🔍 UML Class Diagram
 
