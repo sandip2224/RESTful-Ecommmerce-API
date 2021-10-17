@@ -101,6 +101,12 @@ POST /api/users/login
 
 ![UML Diagram](media/uml.png)
 
+## 💡 Prospects
+
+- [ ] Add product image upload functionality with POST route
+- [ ]  Admin Working Coupon Access (GET+POST+PATCH+DELETE)
+- [ ]  Delivery guy assignment on paid orders with email confirmation
+
 ## 🎴 License
 
 Distributed under the MIT License. See `LICENSE` for more information.
