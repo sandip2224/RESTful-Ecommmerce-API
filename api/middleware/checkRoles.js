@@ -42,9 +42,21 @@ function isAdminOrSeller(req, res, next) {
     }
 }
 
+function isAdminOrCustomer(req, res, next) {
+    if (req.userData.level === 'admin' || req.userData.level === 'customer') {
+        next()
+    }
+    else {
+        return res.status(403).json({
+            message: 'Access denied! User is a customer!!'
+        })
+    }
+}
+
 module.exports = {
     isAdmin,
     isSeller,
     isCustomer,
-    isAdminOrSeller
+    isAdminOrSeller,
+    isAdminOrCustomer
 }

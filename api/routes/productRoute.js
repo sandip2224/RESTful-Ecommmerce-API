@@ -6,8 +6,6 @@ const productModel = require('../models/Product')
 const checkAuth = require('../middleware/checkAuth')
 const {
 	isAdmin,
-	isSeller,
-	isCustomer,
 	isAdminOrSeller
 } = require('../middleware/checkRoles')
 

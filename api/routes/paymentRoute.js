@@ -5,9 +5,7 @@ const mongoose = require('mongoose')
 const orderModel = require('../models/Order')
 const checkAuth = require('../middleware/checkAuth')
 const {
-	isAdmin,
-	isSeller,
-	isCustomer
+    isAdminOrCustomer
 } = require('../middleware/checkRoles')
 
 const errormsg = (err) => {
@@ -45,7 +43,7 @@ router.get('/', checkAuth, (req, res) => {
         }).catch(errormsg)
 })
 
-router.post('/:orderId', checkAuth, (req, res) => {
+router.post('/:orderId', checkAuth, isAdminOrCustomer, (req, res) => {
     orderModel.findById(req.params.orderId).exec().then(doc => {
         if (!doc) {
             return res.status(404).json({

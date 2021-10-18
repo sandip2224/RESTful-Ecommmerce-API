@@ -72,8 +72,8 @@ router.route('/')
                     paymentStatus: result.paymentStatus,
                     _id: result._id,
                     request: {
-                        type: "GET",
-                        url: "http://localhost:3000/api/orders/" + result._id
+                        type: "POST",
+                        url: "http://localhost:3000/api/payments/" + result._id
                     }
                 })
             }).catch(errormsg)
