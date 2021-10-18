@@ -27,7 +27,8 @@ router.get('/', checkAuth, (req, res) => {
                         product: {
                             id: doc.productId._id,
                             name: doc.productId.name,
-                            price: doc.productId.price
+                            price: doc.productId.price,
+                            image: doc.productId.productImage
                         },
                         quantity: doc.quantity,
                         totalPrice: doc.totalPrice,
@@ -69,7 +70,8 @@ router.post('/:orderId', checkAuth, isAdminOrCustomer, (req, res) => {
                 product: {
                     id: doc.productId._id,
                     name: doc.productId.name,
-                    price: doc.productId.price
+                    price: doc.productId.price,
+                    image: doc.productId.productImage
                 },
                 quantity: doc.quantity,
                 totalPrice: doc.totalPrice,

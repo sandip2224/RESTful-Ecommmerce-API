@@ -31,7 +31,8 @@ router.route('/')
                             product: {
                                 id: doc.productId._id,
                                 name: doc.productId.name,
-                                price: doc.productId.price
+                                price: doc.productId.price,
+                                image: doc.productId.productImage
                             },
                             quantity: doc.quantity,
                             totalPrice: doc.totalPrice,
@@ -66,6 +67,7 @@ router.route('/')
                     createdOrder: {
                         productId: result.productId,
                         quantity: result.quantity,
+                        productImage: result.productImage
                     },
                     totalPrice: result.totalPrice,
                     createdAt: result.createdAt,
@@ -96,7 +98,8 @@ router.route('/:orderId')
                             product: {
                                 id: doc.productId._id,
                                 name: doc.productId.name,
-                                price: doc.productId.price
+                                price: doc.productId.price,
+                                image: doc.productId.productImage
                             },
                             quantity: doc.quantity,
                             totalPrice: doc.totalPrice,

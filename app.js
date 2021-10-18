@@ -1,5 +1,6 @@
 const express = require('express')
 const colors = require('colors')
+const path = require('path')
 require('dotenv').config({ path: './api/config/config.env' })
 
 const orderModel = require('./api/models/Order')
@@ -13,6 +14,7 @@ connectDB()
 
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
+app.use('/uploads', express.static(path.join(__dirname, '/uploads')))
 
 // Mounting routes
 app.use('/api/products', require('./api/routes/productRoute'))

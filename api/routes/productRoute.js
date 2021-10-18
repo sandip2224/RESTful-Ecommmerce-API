@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const mongoose = require('mongoose')
+const multer = require('multer')
 
 const productModel = require('../models/Product')
 const checkAuth = require('../middleware/checkAuth')
@@ -15,6 +16,30 @@ const errormsg = (err) => {
 	})
 }
 
+const storage = multer.diskStorage({
+	destination: (req, file, cb) => {
+		cb(null, './uploads/')
+	},
+	filename: (req, file, cb) => {
+		cb(null, new Date().toISOString().replace(/:/g, '-') + file.originalname)
+	}
+})
+
+const fileFilter = (req, file, cb) => {
+	if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png' || file.mimetype === 'image/jpg') {
+		cb(null, true)
+	}
+	cb(null, false)
+}
+
+const upload = multer({
+	storage: storage,
+	fileFilter: fileFilter,
+	limits: {
+		fileSize: 1024 * 1024 * 10,
+	}
+})
+
 router.route('/')
 	.get((req, res) => {
 		productModel.find().then(docs => {
@@ -25,9 +50,10 @@ router.route('/')
 						_id: doc._id,
 						name: doc.name,
 						price: doc.price,
+						productImage: doc.productImage,
 						request: {
 							type: 'GET',
-							url: 'http://localhost:3000/products/' + doc._id
+							url: 'http://localhost:3000/api/products/' + doc._id
 						}
 					}
 				})
@@ -36,10 +62,11 @@ router.route('/')
 		}).catch(errormsg)
 	})
 
-	.post(checkAuth, isAdminOrSeller, (req, res) => {
+	.post(upload.single('productImage'), (req, res) => { //checkAuth, isAdminOrSeller
 		const product = new productModel({
 			name: req.body.name,
-			price: req.body.price
+			price: req.body.price,
+			productImage: req.file.path
 		})
 		product.save().then((doc) => {
 			res.status(201).json({
@@ -47,6 +74,7 @@ router.route('/')
 				createdProduct: {
 					name: doc.name,
 					price: doc.price,
+					productImage: doc.productImage,
 					_id: doc._id,
 					request: {
 						type: 'GET',
@@ -79,6 +107,7 @@ router.route('/:productId')
 					res.status(200).json({
 						name: doc.name,
 						price: doc.price,
+						productImage: doc.productImage,
 						_id: doc._id,
 						request: {
 							type: 'GET',
