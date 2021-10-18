@@ -5,7 +5,12 @@ const mongoose = require('mongoose')
 const orderModel = require('../models/Order')
 const productModel = require('../models/Product')
 const checkAuth = require('../middleware/checkAuth')
-const isAdmin = require('../middleware/isAdmin')
+const {
+    isAdmin,
+    isSeller,
+    isCustomer,
+    isAdminOrSeller
+} = require('../middleware/checkRoles')
 
 const errormsg = (err) => {
     res.status(500).json({
@@ -13,148 +18,147 @@ const errormsg = (err) => {
     })
 }
 
-router.get('/', checkAuth, (req, res) => {
-    orderModel.find().populate('productId')
-        .exec()
-        .then(docs => {
-            res.status(200).json({
-                count: docs.length,
-                orders: docs.map(doc => {
-                    return {
-                        _id: doc._id,
-                        product: {
-                            id: doc.productId._id,
-                            name: doc.productId.name,
-                            price: doc.productId.price
+router.route('/')
+    .get(checkAuth, isCustomer, (req, res) => {
+        orderModel.find().populate('productId')
+            .exec()
+            .then(docs => {
+                res.status(200).json({
+                    count: docs.length,
+                    orders: docs.map(doc => {
+                        return {
+                            _id: doc._id,
+                            product: {
+                                id: doc.productId._id,
+                                name: doc.productId.name,
+                                price: doc.productId.price
+                            },
+                            quantity: doc.quantity,
+                            totalPrice: doc.totalPrice,
+                            createdAt: doc.createdAt,
+                            paymentStatus: doc.paymentStatus,
+                            request: {
+                                type: 'GET',
+                                url: 'http://localhost:3000/api/orders/' + doc._id
+                            }
+                        }
+                    })
+                })
+            }).catch(errormsg)
+    })
+    .post(checkAuth, isCustomer, (req, res) => {
+        productModel.findById(req.body.productId).then(doc => {
+            if (!doc) {
+                return res.status(404).json({
+                    message: 'Product not found!!'
+                })
+            }
+            const order = new orderModel({
+                productId: req.body.productId,
+                quantity: req.body.quantity,
+                totalPrice: req.body.productId * req.body.quantity
+            })
+            return order.save()
+        })
+            .then(result => {
+                res.status(201).json({
+                    message: 'Order created successfully!',
+                    createdOrder: {
+                        productId: result.productId,
+                        quantity: result.quantity,
+                    },
+                    totalPrice: result.totalPrice,
+                    createdAt: result.createdAt,
+                    paymentStatus: result.paymentStatus,
+                    _id: result._id,
+                    request: {
+                        type: "GET",
+                        url: "http://localhost:3000/api/orders/" + result._id
+                    }
+                })
+            }).catch(errormsg)
+    })
+
+
+router.route('/:orderId')
+    .get(checkAuth, isCustomer, (req, res) => {
+        if (mongoose.isValidObjectId(req.params.orderId)) {
+            orderModel.findById(req.params.orderId).populate('productId')
+                .exec().then(doc => {
+                    if (!doc) {
+                        return res.status(404).json({
+                            message: 'Order not found!!'
+                        })
+                    }
+                    res.status(200).json({
+                        order: {
+                            _id: doc._id,
+                            product: {
+                                id: doc.productId._id,
+                                name: doc.productId.name,
+                                price: doc.productId.price
+                            },
+                            quantity: doc.quantity,
+                            totalPrice: doc.totalPrice,
+                            createdAt: doc.createdAt,
+                            paymentStatus: doc.paymentStatus,
                         },
-                        quantity: doc.quantity,
-                        totalPrice: doc.totalPrice,
-                        createdAt: doc.createdAt,
-                        paymentStatus: doc.paymentStatus,
                         request: {
                             type: 'GET',
-                            url: 'http://localhost:3000/api/orders/' + doc._id
+                            url: 'http://localhost:3000/api/orders'
+                        }
+                    })
+                }).catch(errormsg)
+        }
+        else {
+            return res.status(422).json({
+                message: 'Order ID is not valid!!'
+            })
+        }
+    })
+    .patch(checkAuth, isCustomer, (req, res) => {
+        const uid = req.params.orderId
+        if (mongoose.isValidObjectId(uid)) {
+            orderModel.findByIdAndUpdate(uid, { $set: req.body }, { new: true })
+                .then(doc => {
+                    res.status(200).json({
+                        message: "Order updated successfully!!",
+                        _id: uid,
+                        request: {
+                            type: 'GET',
+                            url: 'http://localhost:3000/api/orders/' + uid
+                        }
+                    })
+                }).catch(errormsg)
+        }
+        else {
+            return res.status(422).json({
+                message: 'Order ID is not valid!!'
+            })
+        }
+    })
+    .delete(checkAuth, isCustomer, (req, res) => {
+        const id = req.params.orderId
+        if (mongoose.isValidObjectId(id)) {
+            orderModel.deleteOne({ _id: id }).then(doc => {
+                res.status(200).json({
+                    message: 'Order deleted successfully',
+                    request: {
+                        type: 'POST',
+                        url: 'http://localhost:3000/api/orders',
+                        body: {
+                            productId: 'ID',
+                            quantity: 'Number'
                         }
                     }
                 })
-            })
-        }).catch(errormsg)
-})
-
-router.get('/:orderId', checkAuth, (req, res) => {
-    if (mongoose.isValidObjectId(req.params.orderId)) {
-        orderModel.findById(req.params.orderId).populate('productId')
-            .exec().then(doc => {
-                if (!doc) {
-                    return res.status(404).json({
-                        message: 'Order not found!!'
-                    })
-                }
-                res.status(200).json({
-                    order: {
-                        _id: doc._id,
-                        product: {
-                            id: doc.productId._id,
-                            name: doc.productId.name,
-                            price: doc.productId.price
-                        },
-                        quantity: doc.quantity,
-                        totalPrice: doc.totalPrice,
-                        createdAt: doc.createdAt,
-                        paymentStatus: doc.paymentStatus,
-                    },
-                    request: {
-                        type: 'GET',
-                        url: 'http://localhost:3000/api/orders'
-                    }
-                })
             }).catch(errormsg)
-    }
-    else {
-        return res.status(422).json({
-            message: 'Order ID is not valid!!'
-        })
-    }
-})
-
-router.post('/', checkAuth, (req, res) => {
-    productModel.findById(req.body.productId).then(doc => {
-        if (!doc) {
-            return res.status(404).json({
-                message: 'Product not found!!'
+        }
+        else {
+            return res.status(422).json({
+                message: 'Order ID is not valid!!'
             })
         }
-        const order = new orderModel({
-            productId: req.body.productId,
-            quantity: req.body.quantity,
-            totalPrice: req.body.productId * req.body.quantity
-        })
-        return order.save()
     })
-        .then(result => {
-            res.status(201).json({
-                message: 'Order created successfully!',
-                createdOrder: {
-                    productId: result.productId,
-                    quantity: result.quantity,
-                },
-                totalPrice: result.totalPrice,
-                createdAt: result.createdAt,
-                paymentStatus: result.paymentStatus,
-                _id: result._id,
-                request: {
-                    type: "GET",
-                    url: "http://localhost:3000/api/orders/" + result._id
-                }
-            })
-        })
-        .catch(errormsg)
-})
-
-router.patch('/:orderId', checkAuth, (req, res) => {
-    const uid = req.params.orderId
-    if (mongoose.isValidObjectId(uid)) {
-        orderModel.findByIdAndUpdate(uid, { $set: req.body }, { new: true })
-            .then(doc => {
-                res.status(200).json({
-                    message: "Order updated successfully!!",
-                    _id: uid,
-                    request: {
-                        type: 'GET',
-                        url: 'http://localhost:3000/api/orders/' + uid
-                    }
-                })
-            }).catch(errormsg)
-    }
-    else {
-        return res.status(422).json({
-            message: 'Order ID is not valid!!'
-        })
-    }
-})
-
-router.delete('/:orderId', checkAuth, (req, res) => {
-    const id = req.params.orderId
-    if (mongoose.isValidObjectId(id)) {
-        orderModel.deleteOne({ _id: id }).then(doc => {
-            res.status(200).json({
-                message: 'Order deleted successfully',
-                request: {
-                    type: 'POST',
-                    url: 'http://localhost:3000/api/orders',
-                    body: {
-                        productId: 'ID',
-                        quantity: 'Number'
-                    }
-                }
-            })
-        }).catch(errormsg)
-    }
-    else {
-        return res.status(422).json({
-            message: 'Order ID is not valid!!'
-        })
-    }
-})
 
 module.exports = router

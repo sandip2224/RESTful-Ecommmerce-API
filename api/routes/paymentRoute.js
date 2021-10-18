@@ -1,9 +1,14 @@
 const express = require('express')
 const router = express.Router()
+const mongoose = require('mongoose')
 
 const orderModel = require('../models/Order')
 const checkAuth = require('../middleware/checkAuth')
-const isAdmin = require('../middleware/isAdmin')
+const {
+	isAdmin,
+	isSeller,
+	isCustomer
+} = require('../middleware/checkRoles')
 
 const errormsg = (err) => {
     res.status(500).json({

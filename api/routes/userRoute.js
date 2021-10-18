@@ -21,7 +21,7 @@ router.get('/', (req, res) => {
                 return {
                     email: doc.email,
                     password: doc.password,
-                    isAdmin: doc.isAdmin,
+                    level: doc.level,
                     _id: doc._id,
                     request: {
                         type: 'GET',
@@ -41,7 +41,7 @@ router.get('/:userId', (req, res) => {
                 res.status(200).json({
                     email: doc.email,
                     password: doc.password,
-                    isAdmin: doc.isAdmin,
+                    level: doc.level,
                     _id: doc._id,
                     request: {
                         type: 'GET',
@@ -112,7 +112,8 @@ router.delete('/:userId', (req, res) => {
                         url: 'http://localhost:3000/api/users/register',
                         body: {
                             email: 'String',
-                            password: 'String'
+                            password: 'String',
+                            level: 'String'
                         }
                     }
                 })
@@ -144,7 +145,7 @@ router.post('/register', (req, res) => {
                         const user = new userModel({
                             email: req.body.email,
                             password: hash,
-                            isAdmin: req.body.isAdmin
+                            level: req.body.level
                         })
                         user.save().then(result => {
                             res.status(201).json({
@@ -176,7 +177,7 @@ router.post('/login', (req, res) => {
                         {
                             email: user[0].email,
                             userId: user[0]._id,
-                            isAdmin: user[0].isAdmin
+                            level: user[0].level
                         },
                         process.env.JWT_KEY,
                         {

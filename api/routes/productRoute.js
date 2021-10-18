@@ -1,9 +1,15 @@
 const express = require('express')
 const router = express.Router()
+const mongoose = require('mongoose')
 
 const productModel = require('../models/Product')
 const checkAuth = require('../middleware/checkAuth')
-const isAdmin = require('../middleware/isAdmin')
+const {
+	isAdmin,
+	isSeller,
+	isCustomer,
+	isAdminOrSeller
+} = require('../middleware/checkRoles')
 
 const errormsg = (err) => {
 	res.status(500).json({
@@ -32,7 +38,7 @@ router.route('/')
 		}).catch(errormsg)
 	})
 
-	.post(checkAuth, isAdmin, (req, res) => {
+	.post(checkAuth, isAdminOrSeller, (req, res) => {
 		const product = new productModel({
 			name: req.body.name,
 			price: req.body.price
@@ -96,7 +102,7 @@ router.route('/:productId')
 		}
 	})
 
-	.patch(checkAuth, isAdmin, (req, res) => {
+	.patch(checkAuth, isAdminOrSeller, (req, res) => {
 		const id = req.params.productId
 		if (mongoose.isValidObjectId(id)) {
 			productModel.findByIdAndUpdate(id, { $set: req.body }, { new: true })
