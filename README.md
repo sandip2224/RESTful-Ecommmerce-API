@@ -104,7 +104,7 @@ POST /api/users/login
 ## 💡 Goals
 
 - [x] Add seller, customer, admin levels for protected endpoints
-- [ ] Add product image upload functionality with POST route
+- [ ] ~~Add product image upload functionality with POST route~~ [Testing to be done]
 - [ ] Admin Working Coupon Access (GET+POST+PATCH+DELETE)
 - [ ] Payment route should accept home address, pincode, state, country
 - [ ] Delivery guy assignment on paid orders with email confirmation
