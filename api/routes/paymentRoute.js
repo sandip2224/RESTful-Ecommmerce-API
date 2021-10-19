@@ -3,7 +3,10 @@ const router = express.Router()
 const mongoose = require('mongoose')
 
 const orderModel = require('../models/Order')
+const paymentModel = require('../models/Payment')
+
 const checkAuth = require('../middleware/checkAuth')
+
 const {
     isAdminOrCustomer
 } = require('../middleware/checkRoles')
@@ -14,38 +17,40 @@ const errormsg = (err) => {
     })
 }
 
-router.get('/', checkAuth, (req, res) => {
-    orderModel.find().populate('productId')
+router.get('/', (req, res) => {  // checkAuth
+    paymentModel.find().populate('orderId')
         .exec()
         .then(docs => {
-            const result = docs.filter(doc => doc.paymentStatus === 'CONFIRMED')
-            res.status(200).json({
-                count: result.length,
-                orders: result.map(doc => {
-                    return {
-                        _id: doc._id,
-                        product: {
-                            id: doc.productId._id,
-                            name: doc.productId.name,
-                            price: doc.productId.price,
-                            image: doc.productId.productImage
-                        },
-                        quantity: doc.quantity,
-                        totalPrice: doc.totalPrice,
-                        createdAt: doc.createdAt,
-                        paymentStatus: doc.paymentStatus,
-                        request: {
-                            type: 'GET',
-                            url: 'http://localhost:3000/api/orders/' + doc._id
-                        }
-                    }
-                })
-            })
+            res.status(200).json(docs)
+            // const result = docs.filter(doc => doc.paymentStatus === 'CONFIRMED')
+            // res.status(200).json({
+            //     count: result.length,
+            //     orders: result.map(doc => {
+            //         return {
+            //             _id: doc._id,
+            //             product: {
+            //                 id: doc.productId._id,
+            //                 name: doc.productId.name,
+            //                 price: doc.productId.price,
+            //                 image: doc.productId.productImage
+            //             },
+            //             quantity: doc.quantity,
+            //             totalPrice: doc.totalPrice,
+            //             createdAt: doc.createdAt,
+            //             paymentStatus: doc.paymentStatus,
+            //             request: {
+            //                 type: 'GET',
+            //                 url: 'http://localhost:3000/api/orders/' + doc._id
+            //             }
+            //         }
+            //     })
+            // })
         }).catch(errormsg)
 })
 
-router.post('/:orderId', checkAuth, isAdminOrCustomer, (req, res) => {
-    orderModel.findById(req.params.orderId).exec().then(doc => {
+router.post('/', (req, res) => {  //checkAuth, isAdminOrCustomer
+
+    orderModel.findById(req.body.orderId).exec().then(doc => {
         if (!doc) {
             return res.status(404).json({
                 message: 'Payment failed! Order not found!!'
@@ -60,9 +65,22 @@ router.post('/:orderId', checkAuth, isAdminOrCustomer, (req, res) => {
                 }
             })
         }
+        if (!req.body || !req.body.address || !req.body.pin || !req.body.state || !req.body.cardNumber) {
+            return res.status(404).json({
+                error: 'Required fields are missing!!'
+            })
+        }
+        const payment = new paymentModel({
+            orderId: req.body.orderId,
+            address: req.body.address,
+            pin: req.body.pin,
+            state: req.body.state,
+            cardNumber: req.body.cardNumber
+        })
+        payment.save().then(saver => console.log(saver)).catch(errormsg)
     }).catch(errormsg)
 
-    orderModel.findByIdAndUpdate(req.params.orderId, { $set: { paymentStatus: 'CONFIRMED' } }, { new: true }).then(doc => {
+    orderModel.findByIdAndUpdate(req.body.orderId, { $set: { paymentStatus: 'CONFIRMED' } }, { new: true }).then(doc => {
         res.status(200).json({
             order: {
                 message: 'Payment confirmed! Your order is on it\'s way!!',

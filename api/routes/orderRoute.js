@@ -60,7 +60,6 @@ router.route('/')
                 quantity: req.body.quantity,
                 totalPrice: doc.price * req.body.quantity
             })
-            console.log(doc.price + " * " + req.body.quantity)
             return order.save()
         })
             .then(result => {
