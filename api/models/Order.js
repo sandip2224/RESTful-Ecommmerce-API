@@ -10,14 +10,14 @@ const orderSchema = mongoose.Schema({
         type: Number,
         default: 1
     },
-    total: {
+    totalPrice: {
         type: Number
     },
     createdAt: {
         type: Date,
         default: Date.now
     },
-    paymentStatus:{
+    paymentStatus: {
         type: String,
         enum: ['PENDING', 'CONFIRMED'],
         default: 'PENDING'

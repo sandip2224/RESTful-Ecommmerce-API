@@ -19,10 +19,11 @@ const errormsg = (err) => {
 }
 
 router.route('/')
-    .get(checkAuth, isCustomer, (req, res) => {
+    .get(checkAuth, isCustomer, (req, res) => {//checkAuth, isCustomer
         orderModel.find().populate('productId')
             .exec()
             .then(docs => {
+                // res.status(200).json(docs)
                 res.status(200).json({
                     count: docs.length,
                     orders: docs.map(doc => {
@@ -32,7 +33,7 @@ router.route('/')
                                 id: doc.productId._id,
                                 name: doc.productId.name,
                                 price: doc.productId.price,
-                                image: doc.productId.productImage
+                                productImage: doc.productId.productImage
                             },
                             quantity: doc.quantity,
                             totalPrice: doc.totalPrice,
@@ -57,8 +58,9 @@ router.route('/')
             const order = new orderModel({
                 productId: req.body.productId,
                 quantity: req.body.quantity,
-                totalPrice: req.body.productId * req.body.quantity
+                totalPrice: doc.price * req.body.quantity
             })
+            console.log(doc.price + " * " + req.body.quantity)
             return order.save()
         })
             .then(result => {

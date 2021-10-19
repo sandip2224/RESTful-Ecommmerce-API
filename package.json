@@ -4,6 +4,7 @@
   "description": "Full-fledged E-commerce backend architecture REST API",
   "main": "app.js",
   "scripts": {
+    "test": "jest --reporters default jest-stare --testTimeout=60000 --forceExit",
     "dev": "nodemon app",
     "start": "node app"
   },
@@ -20,6 +21,8 @@
     "multer": "^1.4.3"
   },
   "devDependencies": {
-    "nodemon": "^2.0.13"
+    "jest": "^27.3.0",
+    "nodemon": "^2.0.13",
+    "supertest": "^6.1.6"
   }
 }

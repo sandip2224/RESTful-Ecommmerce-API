@@ -4,7 +4,10 @@ const mongoose = require('mongoose')
 const multer = require('multer')
 
 const productModel = require('../models/Product')
+
 const checkAuth = require('../middleware/checkAuth')
+const checkHeaderAuth = require('../middleware/checkHeaderAuth')
+
 const {
 	isAdmin,
 	isAdminOrSeller
@@ -62,7 +65,7 @@ router.route('/')
 		}).catch(errormsg)
 	})
 
-	.post(upload.single('productImage'), (req, res) => { //checkAuth, isAdminOrSeller
+	.post(checkHeaderAuth, isAdminOrSeller, upload.single('productImage'), (req, res) => {
 		const product = new productModel({
 			name: req.body.name,
 			price: req.body.price,
@@ -78,7 +81,7 @@ router.route('/')
 					_id: doc._id,
 					request: {
 						type: 'GET',
-						url: 'http://localhost:3000/products/' + doc._id
+						url: 'http://localhost:3000/api/products/' + doc._id
 					}
 				}
 			})
@@ -91,7 +94,7 @@ router.route('/')
 				message: "All products deleted successfully!!",
 				request: {
 					type: 'POST',
-					url: 'http://localhost:3000/products/'
+					url: 'http://localhost:3000/api/products/'
 				}
 			})
 		}).catch(errormsg)
@@ -111,7 +114,7 @@ router.route('/:productId')
 						_id: doc._id,
 						request: {
 							type: 'GET',
-							url: 'http://localhost:3000/products/' + doc._id
+							url: 'http://localhost:3000/api/products/' + doc._id
 						}
 					})
 				}
@@ -129,7 +132,7 @@ router.route('/:productId')
 		}
 	})
 
-	.patch(checkAuth, isAdminOrSeller, (req, res) => {
+	.patch(checkHeaderAuth, isAdminOrSeller, upload.single('productImage'), (req, res) => {
 		const id = req.params.productId
 		if (mongoose.isValidObjectId(id)) {
 			productModel.findByIdAndUpdate(id, { $set: req.body }, { new: true })
@@ -139,7 +142,7 @@ router.route('/:productId')
 						id: id,
 						request: {
 							type: 'GET',
-							url: 'http://localhost:3000/products/' + id
+							url: 'http://localhost:3000/api/products/' + id
 						}
 					})
 				}).catch(errormsg)
@@ -150,7 +153,6 @@ router.route('/:productId')
 			})
 		}
 	})
-
 	.delete(checkAuth, isAdmin, (req, res) => {
 		const id = req.params.productId
 		if (mongoose.isValidObjectId(id)) {
@@ -159,7 +161,7 @@ router.route('/:productId')
 					message: "Product deleted successfully!!",
 					request: {
 						type: 'GET',
-						url: 'http://localhost:3000/products/'
+						url: 'http://localhost:3000/api/products/'
 					}
 				})
 			}).catch(errormsg)

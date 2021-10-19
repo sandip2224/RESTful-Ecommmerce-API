@@ -10,6 +10,7 @@ function isAdmin(req, res, next) {
 }
 
 function isCustomer(req, res, next) {
+    console.log("LEVEL: " + req.userData.level)
     if (req.userData.level === 'customer') {
         next()
     }
