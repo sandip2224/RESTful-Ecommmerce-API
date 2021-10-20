@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1634702190317" clover="3.2.0">
-  <project timestamp="1634702190317" name="All files">
+<coverage generated="1634704541312" clover="3.2.0">
+  <project timestamp="1634704541313" name="All files">
     <metrics statements="244" coveredstatements="110" conditionals="72" coveredconditionals="4" methods="66" coveredmethods="11" elements="382" coveredelements="125" complexity="0" loc="244" ncloc="244" packages="5" files="14" classes="14"/>
     <package name="EcommerceX-REST-API">
       <metrics statements="20" coveredstatements="20" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>

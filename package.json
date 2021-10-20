@@ -3,10 +3,13 @@
   "version": "1.0.0",
   "description": "Full-fledged E-commerce backend architecture REST API",
   "main": "app.js",
+  "jest": {
+    "verbose": true
+  },
   "scripts": {
-    "test": "jest --coverage --testTimeout=60000 --forceExit",
+    "test": "jest --reporters default jest-stare --coverage --testTimeout=60000 --forceExit",
     "dev": "nodemon app",
-    "start": "node app --reporters default jest-stare"
+    "start": "node app "
   },
   "author": "Sandipan Das",
   "license": "ISC",
