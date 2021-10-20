@@ -112,7 +112,7 @@ POST /api/users/login
 - [ ] Delivery guy assignment on paid orders with email confirmation
 - [ ] 1 coupon generation on each order above Rs.599 for future orders (approx $8)
 - [ ] Feedback route (on a scale of 1 to 5 stars) + feedbacks can be accessed on a public endpoint
-- [ ] Add Paypal SDK to replace dummy payments
+- [ ] Add testing components using Jest and Supertest to replace Postman
 
 ## 🎴 License
 
