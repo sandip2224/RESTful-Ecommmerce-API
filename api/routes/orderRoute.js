@@ -120,7 +120,7 @@ router.route('/:orderId')
             })
         }
     })
-    .patch(checkAuth, isCustomer, (req, res) => {
+    .patch((req, res) => { //checkAuth, isCustomer
         const uid = req.params.orderId
         if (mongoose.isValidObjectId(uid)) {
             orderModel.findByIdAndUpdate(uid, { $set: req.body }, { new: true })
@@ -141,7 +141,7 @@ router.route('/:orderId')
             })
         }
     })
-    .delete(checkAuth, isCustomer, (req, res) => {
+    .delete((req, res) => {  // checkAuth, isCustomer
         const id = req.params.orderId
         if (mongoose.isValidObjectId(id)) {
             orderModel.deleteOne({ _id: id }).then(doc => {

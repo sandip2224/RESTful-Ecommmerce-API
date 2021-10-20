@@ -1,7 +1,9 @@
 const app = require('../server')
-const mongoose = require("mongoose");
-const supertest = require("supertest");
-const connectDB = require('../api/config/db');
+const mongoose = require("mongoose")
+const supertest = require("supertest")
+const connectDB = require('../api/config/db')
+
+const orderModel = require('../api/models/Order')
 
 beforeEach((done) => {
     mongoose.connect(process.env.MONGO_URI, () => done())
@@ -28,3 +30,32 @@ test("POST /api/orders", async () => {
             expect(response.body.message).toBe('Order created successfully!')
         })
 })
+
+test("PATCH /api/orders/:orderId", async () => {
+    const order = await orderModel.create({ "productId": "616da37e83c82f5e37fb513f", "quantity": 60 });
+    const newOrder = { "productId": "616da37e83c82f5e37fb513f", "quantity": 61 };
+    console.log(order)
+    await supertest(app).patch("/api/orders/" + order.id)
+        .send(newOrder)
+        .expect(200)
+        .then(async (response) => {
+            // Check the response
+            expect(response.body.message).toBe("Order updated successfully!!")
+
+            // Check the data in the database
+            const updatedOrder = await orderModel.findOne({ _id: response.body._id })
+            expect(updatedOrder).toBeTruthy()
+            expect(updatedOrder.quantity).toBe(newOrder.quantity)
+        })
+})
+
+test("DELETE /api/orders/:id", async () => {
+    const order = await orderModel.create({ "productId": "616da37e83c82f5e37fb513f", "quantity": 100 });
+
+    await supertest(app)
+        .delete("/api/orders/" + order.id)
+        .expect(200)
+        .then(async () => {
+            expect(await orderModel.findOne({ _id: order.id })).toBeFalsy();
+        });
+});
