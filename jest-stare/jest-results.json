@@ -26,7 +26,7 @@
     "unmatched": 0,
     "updated": 0
   },
-  "startTime": 1634704530531,
+  "startTime": 1634705894417,
   "success": false,
   "testResults": [
     {
@@ -37,10 +37,10 @@
       "numTodoTests": 0,
       "openHandles": [],
       "perfStats": {
-        "end": 1634704541018,
-        "runtime": 10220,
+        "end": 1634705904614,
+        "runtime": 9968,
         "slow": true,
-        "start": 1634704530798
+        "start": 1634705894646
       },
       "skipped": false,
       "snapshot": {
@@ -56,7 +56,7 @@
       "testResults": [
         {
           "ancestorTitles": [],
-          "duration": 2498,
+          "duration": 2425,
           "failureDetails": [],
           "failureMessages": [],
           "fullName": "Testing to see if Jest works",
@@ -68,7 +68,7 @@
         },
         {
           "ancestorTitles": [],
-          "duration": 2806,
+          "duration": 2835,
           "failureDetails": [],
           "failureMessages": [],
           "fullName": "GET /api/products",
@@ -80,7 +80,7 @@
         },
         {
           "ancestorTitles": [],
-          "duration": 259,
+          "duration": 277,
           "failureDetails": [],
           "failureMessages": [],
           "fullName": "GET /api/products/:productId",
@@ -92,7 +92,7 @@
         },
         {
           "ancestorTitles": [],
-          "duration": 514,
+          "duration": 504,
           "failureDetails": [],
           "failureMessages": [],
           "fullName": "GET /api/orders",
@@ -104,7 +104,7 @@
         },
         {
           "ancestorTitles": [],
-          "duration": 502,
+          "duration": 499,
           "failureDetails": [],
           "failureMessages": [],
           "fullName": "GET /api/orders/:orderId",

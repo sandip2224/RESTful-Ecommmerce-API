@@ -3,9 +3,6 @@
   "version": "1.0.0",
   "description": "Full-fledged E-commerce backend architecture REST API",
   "main": "app.js",
-  "jest": {
-    "verbose": true
-  },
   "scripts": {
     "test": "jest --reporters default jest-stare --coverage --testTimeout=60000 --forceExit",
     "dev": "nodemon app",
