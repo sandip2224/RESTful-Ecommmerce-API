@@ -19,3 +19,15 @@ test("GET /api/payments/:paymentId", async () => {
     await supertest(app).get("/api/payments/616ef20bc68cd193efba4d9f")
         .expect(200)
 })
+
+test("POST /api/payments", async () => {
+    const order = { "orderId": "616ee405e9c45071f44e5819" };
+
+    await supertest(app).post("/api/payments")
+        .send(order)
+        .expect(400)
+        .then(async (response) => {
+            // Check the response
+            expect(response.body.message).toBe('Invalid request! Payment already processed!!')
+        })
+})

@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">57.14% </span>
+                <span class="strong">71.42% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>20/35</span>
+                <span class='fraction'>25/35</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">13.33% </span>
+                <span class="strong">26.66% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>2/15</span>
+                <span class='fraction'>4/15</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
+                <span class="strong">70% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>5/10</span>
+                <span class='fraction'>7/10</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">58.82% </span>
+                <span class="strong">73.52% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>20/34</span>
+                <span class='fraction'>25/34</span>
             </div>
         
             
@@ -300,27 +300,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -328,9 +316,21 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -446,16 +446,16 @@ router.get('/:paymentId', (req, res) =&gt; {  // checkAuth
     }
 })
 &nbsp;
-router.post('/', <span class="fstat-no" title="function not covered" >(r</span>eq, res) =&gt; {  //checkAuth, isAdminOrCustomer
+router.post('/', (req, res) =&gt; {  //checkAuth, isAdminOrCustomer
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    orderModel.findById(req.body.orderId).exec().then(<span class="fstat-no" title="function not covered" >do</span>c =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >        if (!doc) {</span>
+    orderModel.findById(req.body.orderId).exec().then(doc =&gt; {
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (!doc) {
 <span class="cstat-no" title="statement not covered" >            return res.status(404).json({</span>
                 message: 'Payment failed! Order not found!!'
             })
         }
-<span class="cstat-no" title="statement not covered" >        if (doc.paymentStatus === 'CONFIRMED') {</span>
-<span class="cstat-no" title="statement not covered" >            return res.status(400).json({</span>
+        if (doc.paymentStatus === 'CONFIRMED') {
+            return res.status(400).json({
                 message: 'Invalid request! Payment already processed!!',
                 request: {
                     type: 'GET',
@@ -478,7 +478,7 @@ router.post('/', <span class="fstat-no" title="function not covered" >(r</span>e
 <span class="cstat-no" title="statement not covered" >        payment.save().then(<span class="fstat-no" title="function not covered" >sa</span>ver =&gt; <span class="cstat-no" title="statement not covered" >console.log(saver))</span>.catch(errormsg)</span>
     }).catch(errormsg)
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    orderModel.findByIdAndUpdate(req.body.orderId, { $set: { paymentStatus: 'CONFIRMED' } }, { new: true }).then(<span class="fstat-no" title="function not covered" >do</span>c =&gt; {</span>
+    orderModel.findByIdAndUpdate(req.body.orderId, { $set: { paymentStatus: 'CONFIRMED' } }, { new: true }).then(<span class="fstat-no" title="function not covered" >do</span>c =&gt; {
 <span class="cstat-no" title="statement not covered" >        res.status(200).json({</span>
             order: {
                 message: 'Payment confirmed! Your order is on it\'s way!!',
@@ -508,7 +508,7 @@ module.exports = router</pre></td></tr></table></pre>
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Oct 20 2021 12:24:56 GMT+0530 (India Standard Time)
+                at Wed Oct 20 2021 13:23:59 GMT+0530 (India Standard Time)
             </div>
         </div>
         <script src="../../../prettify.js"></script>

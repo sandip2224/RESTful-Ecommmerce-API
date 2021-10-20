@@ -34,7 +34,6 @@ test("POST /api/orders", async () => {
 test("PATCH /api/orders/:orderId", async () => {
     const order = await orderModel.create({ "productId": "616da37e83c82f5e37fb513f", "quantity": 60 });
     const newOrder = { "productId": "616da37e83c82f5e37fb513f", "quantity": 61 };
-    console.log(order)
     await supertest(app).patch("/api/orders/" + order.id)
         .send(newOrder)
         .expect(200)
