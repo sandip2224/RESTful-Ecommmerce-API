@@ -91,21 +91,17 @@ router.get('/:paymentId', (req, res) => {  // checkAuth
     }
 })
 
-router.post('/', (req, res) => {  //checkAuth, isAdminOrCustomer
-
+router.post('/', async (req, res) => {  //checkAuth, isAdminOrCustomer
     orderModel.findById(req.body.orderId).exec().then(doc => {
         if (!doc) {
             return res.status(404).json({
                 message: 'Payment failed! Order not found!!'
             })
         }
+        console.log(doc.paymentStatus)
         if (doc.paymentStatus === 'CONFIRMED') {
             return res.status(400).json({
-                message: 'Invalid request! Payment already processed!!',
-                request: {
-                    type: 'GET',
-                    url: 'http://localhost:3000/api/orders'
-                }
+                message: 'Invalid request! Payment already processed!!'
             })
         }
         if (!req.body || !req.body.address || !req.body.pin || !req.body.state || !req.body.cardNumber) {
@@ -121,28 +117,27 @@ router.post('/', (req, res) => {  //checkAuth, isAdminOrCustomer
             cardNumber: req.body.cardNumber
         })
         payment.save().then(saver => console.log(saver)).catch(errormsg)
-    }).catch(errormsg)
-
-    orderModel.findByIdAndUpdate(req.body.orderId, { $set: { paymentStatus: 'CONFIRMED' } }, { new: true }).then(doc => {
-        res.status(200).json({
-            order: {
-                message: 'Payment confirmed! Your order is on it\'s way!!',
-                _id: doc._id,
-                product: {
-                    id: doc.productId._id,
-                    name: doc.productId.name,
-                    price: doc.productId.price,
-                    image: doc.productId.productImage
+        orderModel.findByIdAndUpdate(req.body.orderId, { $set: { paymentStatus: 'CONFIRMED' } }, { new: true }).then(doc => {
+            res.status(200).json({
+                order: {
+                    message: 'Payment confirmed! Your order is on it\'s way!!',
+                    _id: doc._id,
+                    product: {
+                        id: doc.productId._id,
+                        name: doc.productId.name,
+                        price: doc.productId.price,
+                        image: doc.productId.productImage
+                    },
+                    quantity: doc.quantity,
+                    totalPrice: doc.totalPrice,
+                    paymentStatus: doc.paymentStatus
                 },
-                quantity: doc.quantity,
-                totalPrice: doc.totalPrice,
-                paymentStatus: doc.paymentStatus
-            },
-            request: {
-                type: 'GET',
-                url: 'http://localhost:3000/api/orders'
-            }
-        })
+                request: {
+                    type: 'GET',
+                    url: 'http://localhost:3000/api/orders'
+                }
+            })
+        }).catch(errormsg)
     }).catch(errormsg)
 })
 
