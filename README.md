@@ -1,4 +1,6 @@
-<h2 align="center">E-CommerceX REST API 🛒</h2>
+<h2 align="center">RESTful Ecommerce API 🛒</h2>
+
+> Currently under construction. Of course you can explore what I've built so far. Just follow some basic steps mentioned below.
 
 ## 🔄 Built with
 
@@ -39,7 +41,7 @@
    npm run dev
    ```
    
-## 🔱 API Endpoints
+<!-- ## 🔱 API Endpoints
 
 ### Products
 
@@ -94,12 +96,12 @@ To login a user and generate a JWT token for accessing protected routes:
 ```bash
 POST /api/users/login
 ```
-
+ -->
 > Note: Postman documentation can be found here: [api.sandip2224.in/ecommercex](https://documenter.getpostman.com/view/12943951/UV5WCHsP)
 
-## 🔍 UML Class Diagram
+<!-- ## 🔍 UML Class Diagram
 
-![UML Diagram](media/uml.png)
+![UML Diagram](media/uml.png) -->
 
 ## 💡 Goals
 
@@ -110,7 +112,7 @@ POST /api/users/login
 - [ ] Delivery guy assignment on paid orders with email confirmation
 - [ ] 1 coupon generation on each order above Rs.599 for future orders (approx $8)
 - [ ] Feedback route (on a scale of 1 to 5 stars) + feedbacks can be accessed on a public endpoint
-- [ ] Add Paypal SDK to replace dummy payments
+- [ ] Add testing components using Jest and Supertest to replace Postman
 
 ## 🎴 License
 
