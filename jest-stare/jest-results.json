@@ -26,7 +26,7 @@
     "unmatched": 0,
     "updated": 0
   },
-  "startTime": 1634712540265,
+  "startTime": 1634712880081,
   "success": false,
   "testResults": [
     {
@@ -37,10 +37,10 @@
       "numTodoTests": 0,
       "openHandles": [],
       "perfStats": {
-        "end": 1634712552592,
-        "runtime": 11124,
+        "end": 1634712892808,
+        "runtime": 11134,
         "slow": true,
-        "start": 1634712541468
+        "start": 1634712881674
       },
       "skipped": false,
       "snapshot": {
@@ -56,7 +56,7 @@
       "testResults": [
         {
           "ancestorTitles": [],
-          "duration": 2419,
+          "duration": 2530,
           "failureDetails": [],
           "failureMessages": [],
           "fullName": "Testing to see if Jest works",
@@ -68,7 +68,7 @@
         },
         {
           "ancestorTitles": [],
-          "duration": 2860,
+          "duration": 2758,
           "failureDetails": [],
           "failureMessages": [],
           "fullName": "GET /api/products",
@@ -80,7 +80,7 @@
         },
         {
           "ancestorTitles": [],
-          "duration": 262,
+          "duration": 272,
           "failureDetails": [],
           "failureMessages": [],
           "fullName": "GET /api/products/:productId",
@@ -101,10 +101,10 @@
       "numTodoTests": 0,
       "openHandles": [],
       "perfStats": {
-        "end": 1634712553269,
-        "runtime": 11680,
+        "end": 1634712893365,
+        "runtime": 11858,
         "slow": true,
-        "start": 1634712541589
+        "start": 1634712881507
       },
       "skipped": false,
       "snapshot": {
@@ -120,7 +120,7 @@
       "testResults": [
         {
           "ancestorTitles": [],
-          "duration": 5280,
+          "duration": 5242,
           "failureDetails": [],
           "failureMessages": [],
           "fullName": "GET /api/payments",
@@ -132,7 +132,7 @@
         },
         {
           "ancestorTitles": [],
-          "duration": 487,
+          "duration": 504,
           "failureDetails": [],
           "failureMessages": [],
           "fullName": "GET /api/payments/:paymentId",
@@ -153,10 +153,10 @@
       "numTodoTests": 0,
       "openHandles": [],
       "perfStats": {
-        "end": 1634712555110,
-        "runtime": 13673,
+        "end": 1634712895352,
+        "runtime": 13773,
         "slow": true,
-        "start": 1634712541437
+        "start": 1634712881579
       },
       "skipped": false,
       "snapshot": {
@@ -172,7 +172,7 @@
       "testResults": [
         {
           "ancestorTitles": [],
-          "duration": 5524,
+          "duration": 5538,
           "failureDetails": [],
           "failureMessages": [],
           "fullName": "GET /api/orders",
@@ -184,7 +184,7 @@
         },
         {
           "ancestorTitles": [],
-          "duration": 516,
+          "duration": 514,
           "failureDetails": [],
           "failureMessages": [],
           "fullName": "GET /api/orders/:orderId",
@@ -196,7 +196,7 @@
         },
         {
           "ancestorTitles": [],
-          "duration": 577,
+          "duration": 573,
           "failureDetails": [],
           "failureMessages": [],
           "fullName": "POST /api/orders",
@@ -208,7 +208,7 @@
         },
         {
           "ancestorTitles": [],
-          "duration": 774,
+          "duration": 776,
           "failureDetails": [],
           "failureMessages": [],
           "fullName": "PATCH /api/orders/:orderId",
@@ -1798,7 +1798,7 @@
         "18": 3,
         "19": 1,
         "20": 1,
-        "21": 3,
+        "21": 1,
         "22": 1,
         "23": 0,
         "24": 0,
@@ -1832,7 +1832,7 @@
         "3": 0,
         "4": 1,
         "5": 1,
-        "6": 3,
+        "6": 1,
         "7": 0,
         "8": 0,
         "9": 0,
@@ -3645,7 +3645,7 @@
         "9": 3,
         "10": 1,
         "11": 1,
-        "12": 7,
+        "12": 1,
         "13": 1,
         "14": 1,
         "15": 0,
@@ -3675,7 +3675,7 @@
         "0": 0,
         "1": 1,
         "2": 1,
-        "3": 7,
+        "3": 1,
         "4": 1,
         "5": 1,
         "6": 1,

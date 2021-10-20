@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1634712555965" clover="3.2.0">
-  <project timestamp="1634712555966" name="All files">
+<coverage generated="1634712896141" clover="3.2.0">
+  <project timestamp="1634712896141" name="All files">
     <metrics statements="245" coveredstatements="131" conditionals="74" coveredconditionals="10" methods="66" coveredmethods="23" elements="385" coveredelements="164" complexity="0" loc="245" ncloc="245" packages="5" files="14" classes="14"/>
     <package name="EcommerceX-REST-API">
       <metrics statements="21" coveredstatements="20" conditionals="2" coveredconditionals="1" methods="0" coveredmethods="0"/>
@@ -130,7 +130,7 @@
         <line num="21" count="3" type="stmt"/>
         <line num="23" count="1" type="stmt"/>
         <line num="27" count="1" type="stmt"/>
-        <line num="30" count="7" type="stmt"/>
+        <line num="30" count="1" type="stmt"/>
         <line num="52" count="1" type="stmt"/>
         <line num="53" count="1" type="cond" truecount="1" falsecount="1"/>
         <line num="54" count="0" type="stmt"/>
@@ -216,7 +216,7 @@
         <line num="46" count="3" type="stmt"/>
         <line num="48" count="1" type="stmt"/>
         <line num="49" count="1" type="stmt"/>
-        <line num="52" count="3" type="stmt"/>
+        <line num="52" count="1" type="stmt"/>
         <line num="64" count="1" type="stmt"/>
         <line num="69" count="0" type="stmt"/>
         <line num="74" count="0" type="stmt"/>
