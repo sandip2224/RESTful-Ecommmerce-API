@@ -4,7 +4,7 @@
   "description": "Full-fledged E-commerce backend architecture REST API",
   "main": "app.js",
   "scripts": {
-    "test": "jest --reporters default jest-stare --coverage --testTimeout=60000 --forceExit",
+    "test": "NODE_ENV=test jest --reporters default jest-stare --coverage --testTimeout=60000 --forceExit",
     "dev": "nodemon app",
     "start": "node app "
   },

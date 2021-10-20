@@ -1,14 +1,14 @@
 {
   "numFailedTestSuites": 0,
   "numFailedTests": 0,
-  "numPassedTestSuites": 1,
-  "numPassedTests": 5,
+  "numPassedTestSuites": 2,
+  "numPassedTests": 6,
   "numPendingTestSuites": 0,
   "numPendingTests": 0,
   "numRuntimeErrorTestSuites": 0,
   "numTodoTests": 0,
-  "numTotalTestSuites": 1,
-  "numTotalTests": 5,
+  "numTotalTestSuites": 2,
+  "numTotalTests": 6,
   "openHandles": [],
   "snapshot": {
     "added": 0,
@@ -26,21 +26,21 @@
     "unmatched": 0,
     "updated": 0
   },
-  "startTime": 1634705894417,
+  "startTime": 1634709690662,
   "success": false,
   "testResults": [
     {
       "leaks": false,
       "numFailingTests": 0,
-      "numPassingTests": 5,
+      "numPassingTests": 3,
       "numPendingTests": 0,
       "numTodoTests": 0,
       "openHandles": [],
       "perfStats": {
-        "end": 1634705904614,
-        "runtime": 9968,
+        "end": 1634709705538,
+        "runtime": 13187,
         "slow": true,
-        "start": 1634705894646
+        "start": 1634709692351
       },
       "skipped": false,
       "snapshot": {
@@ -56,7 +56,7 @@
       "testResults": [
         {
           "ancestorTitles": [],
-          "duration": 2425,
+          "duration": 3050,
           "failureDetails": [],
           "failureMessages": [],
           "fullName": "Testing to see if Jest works",
@@ -68,7 +68,7 @@
         },
         {
           "ancestorTitles": [],
-          "duration": 2835,
+          "duration": 2766,
           "failureDetails": [],
           "failureMessages": [],
           "fullName": "GET /api/products",
@@ -80,7 +80,7 @@
         },
         {
           "ancestorTitles": [],
-          "duration": 277,
+          "duration": 258,
           "failureDetails": [],
           "failureMessages": [],
           "fullName": "GET /api/products/:productId",
@@ -89,10 +89,38 @@
           "numPassingAsserts": 0,
           "status": "passed",
           "title": "GET /api/products/:productId"
-        },
+        }
+      ],
+      "failureMessage": null
+    },
+    {
+      "leaks": false,
+      "numFailingTests": 0,
+      "numPassingTests": 3,
+      "numPendingTests": 0,
+      "numTodoTests": 0,
+      "openHandles": [],
+      "perfStats": {
+        "end": 1634709706318,
+        "runtime": 13970,
+        "slow": true,
+        "start": 1634709692348
+      },
+      "skipped": false,
+      "snapshot": {
+        "added": 0,
+        "fileDeleted": false,
+        "matched": 0,
+        "unchecked": 0,
+        "uncheckedKeys": [],
+        "unmatched": 0,
+        "updated": 0
+      },
+      "testFilePath": "C:\\Users\\User\\Desktop\\EcommerceX-REST-API\\__tests__\\orderRoute.test.js",
+      "testResults": [
         {
           "ancestorTitles": [],
-          "duration": 504,
+          "duration": 5714,
           "failureDetails": [],
           "failureMessages": [],
           "fullName": "GET /api/orders",
@@ -104,7 +132,7 @@
         },
         {
           "ancestorTitles": [],
-          "duration": 499,
+          "duration": 514,
           "failureDetails": [],
           "failureMessages": [],
           "fullName": "GET /api/orders/:orderId",
@@ -113,6 +141,18 @@
           "numPassingAsserts": 0,
           "status": "passed",
           "title": "GET /api/orders/:orderId"
+        },
+        {
+          "ancestorTitles": [],
+          "duration": 596,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "POST /api/orders",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 0,
+          "status": "passed",
+          "title": "POST /api/orders"
         }
       ],
       "failureMessage": null
@@ -149,33 +189,80 @@
             "column": 0
           },
           "end": {
-            "line": 4,
-            "column": 101
+            "line": 6,
+            "column": 1
           }
         },
         "3": {
           "start": {
-            "line": 6,
+            "line": 5,
+            "column": 4
+          },
+          "end": {
+            "line": 5,
+            "column": 105
+          }
+        },
+        "4": {
+          "start": {
+            "line": 8,
             "column": 0
           },
           "end": {
-            "line": 6,
+            "line": 8,
             "column": 23
           }
         }
       },
       "fnMap": {},
-      "branchMap": {},
+      "branchMap": {
+        "0": {
+          "loc": {
+            "start": {
+              "line": 4,
+              "column": 0
+            },
+            "end": {
+              "line": 6,
+              "column": 1
+            }
+          },
+          "type": "if",
+          "locations": [
+            {
+              "start": {
+                "line": 4,
+                "column": 0
+              },
+              "end": {
+                "line": 6,
+                "column": 1
+              }
+            },
+            {
+              "start": {},
+              "end": {}
+            }
+          ],
+          "line": 4
+        }
+      },
       "s": {
-        "0": 1,
-        "1": 1,
-        "2": 1,
-        "3": 1
+        "0": 2,
+        "1": 2,
+        "2": 2,
+        "3": 0,
+        "4": 2
       },
       "f": {},
-      "b": {},
+      "b": {
+        "0": [
+          0,
+          2
+        ]
+      },
       "_coverageSchema": "1a1c01bbd47fc00a2c39e90264f33305004495a9",
-      "hash": "d8f3b551b0b6db4c04c7efb3f4a11141bf2ea825"
+      "hash": "46aab71016e132744acd148a0c3fdf62dd8dd86a"
     },
     "C:\\Users\\User\\Desktop\\EcommerceX-REST-API\\app.js": {
       "path": "C:\\Users\\User\\Desktop\\EcommerceX-REST-API\\app.js",
@@ -344,22 +431,22 @@
       "fnMap": {},
       "branchMap": {},
       "s": {
-        "0": 1,
-        "1": 1,
-        "2": 1,
-        "3": 1,
-        "4": 1,
-        "5": 1,
-        "6": 1,
-        "7": 1,
-        "8": 1,
-        "9": 1,
-        "10": 1,
-        "11": 1,
-        "12": 1,
-        "13": 1,
-        "14": 1,
-        "15": 1
+        "0": 2,
+        "1": 2,
+        "2": 2,
+        "3": 2,
+        "4": 2,
+        "5": 2,
+        "6": 2,
+        "7": 2,
+        "8": 2,
+        "9": 2,
+        "10": 2,
+        "11": 2,
+        "12": 2,
+        "13": 2,
+        "14": 2,
+        "15": 2
       },
       "f": {},
       "b": {},
@@ -403,9 +490,9 @@
       "fnMap": {},
       "branchMap": {},
       "s": {
-        "0": 1,
-        "1": 1,
-        "2": 1
+        "0": 2,
+        "1": 2,
+        "2": 2
       },
       "f": {},
       "b": {},
@@ -494,14 +581,14 @@
       },
       "branchMap": {},
       "s": {
-        "0": 1,
-        "1": 1,
-        "2": 1,
-        "3": 1,
-        "4": 1
+        "0": 2,
+        "1": 2,
+        "2": 2,
+        "3": 2,
+        "4": 2
       },
       "f": {
-        "0": 1
+        "0": 2
       },
       "b": {},
       "_coverageSchema": "1a1c01bbd47fc00a2c39e90264f33305004495a9",
@@ -1614,25 +1701,25 @@
         }
       },
       "s": {
-        "0": 1,
-        "1": 1,
-        "2": 1,
-        "3": 1,
-        "4": 1,
-        "5": 1,
-        "6": 1,
-        "7": 1,
-        "8": 1,
+        "0": 2,
+        "1": 2,
+        "2": 2,
+        "3": 2,
+        "4": 2,
+        "5": 2,
+        "6": 2,
+        "7": 2,
+        "8": 2,
         "9": 0,
-        "10": 1,
+        "10": 2,
         "11": 0,
         "12": 0,
-        "13": 1,
+        "13": 2,
         "14": 0,
         "15": 0,
         "16": 0,
-        "17": 1,
-        "18": 1,
+        "17": 2,
+        "18": 2,
         "19": 1,
         "20": 1,
         "21": 3,
@@ -1642,7 +1729,7 @@
         "25": 0,
         "26": 0,
         "27": 0,
-        "28": 1,
+        "28": 2,
         "29": 1,
         "30": 1,
         "31": 1,
@@ -1660,7 +1747,7 @@
         "43": 0,
         "44": 0,
         "45": 0,
-        "46": 1
+        "46": 2
       },
       "f": {
         "0": 0,
@@ -1748,9 +1835,9 @@
       "fnMap": {},
       "branchMap": {},
       "s": {
-        "0": 1,
-        "1": 1,
-        "2": 1
+        "0": 2,
+        "1": 2,
+        "2": 2
       },
       "f": {},
       "b": {},
@@ -1859,8 +1946,8 @@
       },
       "branchMap": {},
       "s": {
-        "0": 1,
-        "1": 1,
+        "0": 2,
+        "1": 2,
         "2": 0,
         "3": 0,
         "4": 0,
@@ -1986,8 +2073,8 @@
       },
       "branchMap": {},
       "s": {
-        "0": 1,
-        "1": 1,
+        "0": 2,
+        "1": 2,
         "2": 0,
         "3": 0,
         "4": 0,
@@ -2569,7 +2656,7 @@
         "13": 0,
         "14": 0,
         "15": 0,
-        "16": 1
+        "16": 2
       },
       "f": {
         "0": 0,
@@ -3470,26 +3557,26 @@
         }
       },
       "s": {
-        "0": 1,
-        "1": 1,
-        "2": 1,
-        "3": 1,
-        "4": 1,
-        "5": 1,
-        "6": 1,
-        "7": 1,
+        "0": 2,
+        "1": 2,
+        "2": 2,
+        "3": 2,
+        "4": 2,
+        "5": 2,
+        "6": 2,
+        "7": 2,
         "8": 0,
-        "9": 1,
+        "9": 2,
         "10": 1,
         "11": 1,
-        "12": 1,
-        "13": 0,
-        "14": 0,
+        "12": 2,
+        "13": 1,
+        "14": 1,
         "15": 0,
-        "16": 0,
-        "17": 0,
-        "18": 0,
-        "19": 1,
+        "16": 1,
+        "17": 1,
+        "18": 1,
+        "19": 2,
         "20": 1,
         "21": 1,
         "22": 1,
@@ -3506,16 +3593,16 @@
         "33": 0,
         "34": 0,
         "35": 0,
-        "36": 1
+        "36": 2
       },
       "f": {
         "0": 0,
         "1": 1,
         "2": 1,
-        "3": 1,
-        "4": 0,
-        "5": 0,
-        "6": 0,
+        "3": 2,
+        "4": 1,
+        "5": 1,
+        "6": 1,
         "7": 1,
         "8": 1,
         "9": 0,
@@ -3526,7 +3613,7 @@
       "b": {
         "0": [
           0,
-          0
+          1
         ],
         "1": [
           1,
@@ -4901,26 +4988,26 @@
         }
       },
       "s": {
-        "0": 1,
-        "1": 1,
-        "2": 1,
-        "3": 1,
-        "4": 1,
-        "5": 1,
-        "6": 1,
+        "0": 2,
+        "1": 2,
+        "2": 2,
+        "3": 2,
+        "4": 2,
+        "5": 2,
+        "6": 2,
         "7": 0,
-        "8": 1,
+        "8": 2,
         "9": 0,
         "10": 0,
         "11": 0,
-        "12": 1,
+        "12": 2,
         "13": 0,
         "14": 0,
         "15": 0,
         "16": 0,
         "17": 0,
         "18": 0,
-        "19": 1,
+        "19": 2,
         "20": 0,
         "21": 0,
         "22": 0,
@@ -4931,12 +5018,12 @@
         "27": 0,
         "28": 0,
         "29": 0,
-        "30": 1,
+        "30": 2,
         "31": 0,
         "32": 0,
         "33": 0,
         "34": 0,
-        "35": 1,
+        "35": 2,
         "36": 0,
         "37": 0,
         "38": 0,
@@ -4946,7 +5033,7 @@
         "42": 0,
         "43": 0,
         "44": 0,
-        "45": 1,
+        "45": 2,
         "46": 0,
         "47": 0,
         "48": 0,
@@ -4957,7 +5044,7 @@
         "53": 0,
         "54": 0,
         "55": 0,
-        "56": 1
+        "56": 2
       },
       "f": {
         "0": 0,
@@ -5061,9 +5148,9 @@
       "fnMap": {},
       "branchMap": {},
       "s": {
-        "0": 1,
-        "1": 1,
-        "2": 1
+        "0": 2,
+        "1": 2,
+        "2": 2
       },
       "f": {},
       "b": {},
@@ -5897,20 +5984,20 @@
         }
       },
       "s": {
-        "0": 1,
-        "1": 1,
-        "2": 1,
-        "3": 1,
-        "4": 1,
-        "5": 1,
-        "6": 1,
-        "7": 1,
+        "0": 2,
+        "1": 2,
+        "2": 2,
+        "3": 2,
+        "4": 2,
+        "5": 2,
+        "6": 2,
+        "7": 2,
         "8": 0,
-        "9": 1,
+        "9": 2,
         "10": 0,
         "11": 0,
         "12": 0,
-        "13": 1,
+        "13": 2,
         "14": 0,
         "15": 0,
         "16": 0,
@@ -5918,7 +6005,7 @@
         "18": 0,
         "19": 0,
         "20": 0,
-        "21": 1,
+        "21": 2,
         "22": 0,
         "23": 0,
         "24": 0,
@@ -5931,7 +6018,7 @@
         "31": 0,
         "32": 0,
         "33": 0,
-        "34": 1
+        "34": 2
       },
       "f": {
         "0": 0,
@@ -6014,9 +6101,9 @@
       "fnMap": {},
       "branchMap": {},
       "s": {
-        "0": 1,
-        "1": 1,
-        "2": 1
+        "0": 2,
+        "1": 2,
+        "2": 2
       },
       "f": {},
       "b": {},
