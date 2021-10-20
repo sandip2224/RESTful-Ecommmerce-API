@@ -22,10 +22,12 @@ app.use('/api/orders', require('./api/routes/orderRoute'))
 app.use('/api/users', require('./api/routes/userRoute'))
 app.use('/api/payments', require('./api/routes/paymentRoute'))
 
-const server = app.listen(process.env.PORT, console.log(`Server running on port ${process.env.PORT}`.green.bold))
+// const server = app.listen(process.env.PORT, console.log(`Server running on port ${process.env.PORT}`.green.bold))
 
-// Handle unhandled promise rejections
-process.on("unhandledRejection", (err, promise) => {
-	console.log(`Error: ${err.message}`.red);
-	server.close(() => process.exit(1));
-});
+// // Handle unhandled promise rejections
+// process.on("unhandledRejection", (err, promise) => {
+// 	console.log(`Error: ${err.message}`.red);
+// 	server.close(() => process.exit(1));
+// })
+
+module.exports = app

@@ -65,7 +65,7 @@ router.route('/')
 		}).catch(errormsg)
 	})
 
-	.post(checkHeaderAuth, isAdminOrSeller, upload.single('productImage'), (req, res) => {
+	.post(upload.single('productImage'), (req, res) => { // checkHeaderAuth, isAdminOrSeller
 		const product = new productModel({
 			name: req.body.name,
 			price: req.body.price,

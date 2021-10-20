@@ -19,7 +19,7 @@ const errormsg = (err) => {
 }
 
 router.route('/')
-    .get(checkAuth, isCustomer, (req, res) => {//checkAuth, isCustomer
+    .get((req, res) => {//checkAuth, isCustomer
         orderModel.find().populate('productId')
             .exec()
             .then(docs => {
@@ -48,7 +48,7 @@ router.route('/')
                 })
             }).catch(errormsg)
     })
-    .post(checkAuth, isCustomer, (req, res) => {
+    .post((req, res) => {  // checkAuth, isCustomer
         productModel.findById(req.body.productId).then(doc => {
             if (!doc) {
                 return res.status(404).json({
@@ -84,7 +84,7 @@ router.route('/')
 
 
 router.route('/:orderId')
-    .get(checkAuth, isCustomer, (req, res) => {
+    .get((req, res) => {  // checkAuth, isCustomer
         if (mongoose.isValidObjectId(req.params.orderId)) {
             orderModel.findById(req.params.orderId).populate('productId')
                 .exec().then(doc => {
