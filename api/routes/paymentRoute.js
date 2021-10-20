@@ -21,31 +21,74 @@ router.get('/', (req, res) => {  // checkAuth
     paymentModel.find().populate('orderId')
         .exec()
         .then(docs => {
-            res.status(200).json(docs)
-            // const result = docs.filter(doc => doc.paymentStatus === 'CONFIRMED')
-            // res.status(200).json({
-            //     count: result.length,
-            //     orders: result.map(doc => {
-            //         return {
-            //             _id: doc._id,
-            //             product: {
-            //                 id: doc.productId._id,
-            //                 name: doc.productId.name,
-            //                 price: doc.productId.price,
-            //                 image: doc.productId.productImage
-            //             },
-            //             quantity: doc.quantity,
-            //             totalPrice: doc.totalPrice,
-            //             createdAt: doc.createdAt,
-            //             paymentStatus: doc.paymentStatus,
-            //             request: {
-            //                 type: 'GET',
-            //                 url: 'http://localhost:3000/api/orders/' + doc._id
-            //             }
-            //         }
-            //     })
-            // })
+            // res.status(200).json(docs)
+            // const docs = docs.filter(doc => doc.paymentStatus === 'CONFIRMED')
+            res.status(200).json({
+                count: docs.length,
+                payments: docs.map(doc => {
+                    return {
+                        _id: doc._id,
+                        order: {
+                            id: doc.orderId._id,
+                            product: {
+                                id: doc.orderId.productId,
+                            },
+                            quantity: doc.orderId.quantity,
+                            totalPrice: doc.orderId.totalPrice,
+                        },
+                        paymentStatus: doc.orderId.paymentStatus,
+                        address: doc.address,
+                        pin: doc.pin,
+                        state: doc.state,
+                        cardNumber: doc.cardNumber,
+                        request: {
+                            type: 'GET',
+                            url: 'http://localhost:3000/api/payments/' + doc._id
+                        }
+                    }
+                })
+            })
         }).catch(errormsg)
+})
+
+router.get('/:paymentId', (req, res) => {  // checkAuth
+    const id = req.params.paymentId;
+    if (mongoose.isValidObjectId(id)) {
+        paymentModel.findById(id).populate('orderId').then(doc => {
+            if (doc) {
+                res.status(200).json({
+                    _id: doc._id,
+                    order: {
+                        id: doc.orderId._id,
+                        product: {
+                            id: doc.orderId.productId,
+                        },
+                        quantity: doc.orderId.quantity,
+                        totalPrice: doc.orderId.totalPrice,
+                    },
+                    paymentStatus: doc.orderId.paymentStatus,
+                    address: doc.address,
+                    pin: doc.pin,
+                    state: doc.state,
+                    cardNumber: doc.cardNumber,
+                    request: {
+                        type: 'GET',
+                        url: 'http://localhost:3000/api/payments/' + doc._id
+                    }
+                })
+            }
+            else {
+                res.status(404).json({
+                    message: 'No confirmed payment found for given ID'
+                })
+            }
+        }).catch(errormsg)
+    }
+    else {
+        return res.status(422).json({
+            message: 'Payment ID is not valid!!'
+        })
+    }
 })
 
 router.post('/', (req, res) => {  //checkAuth, isAdminOrCustomer
