@@ -5,6 +5,8 @@ const mongoose = require('mongoose')
 const orderModel = require('../models/Order')
 const paymentModel = require('../models/Payment')
 
+const sendMail1 = require('../utils/sendMail')
+
 const checkAuth = require('../middleware/checkAuth')
 
 const {
@@ -21,8 +23,6 @@ router.get('/', (req, res) => {  // checkAuth
     paymentModel.find().populate('orderId')
         .exec()
         .then(docs => {
-            // res.status(200).json(docs)
-            // const docs = docs.filter(doc => doc.paymentStatus === 'CONFIRMED')
             res.status(200).json({
                 count: docs.length,
                 payments: docs.map(doc => {
@@ -91,7 +91,7 @@ router.get('/:paymentId', (req, res) => {  // checkAuth
     }
 })
 
-router.post('/', async (req, res) => {  //checkAuth, isAdminOrCustomer
+router.post('/', checkAuth, isAdminOrCustomer, async (req, res) => {  //checkAuth, isAdminOrCustomer
     orderModel.findById(req.body.orderId).exec().then(doc => {
         if (!doc) {
             return res.status(404).json({
@@ -117,6 +117,7 @@ router.post('/', async (req, res) => {  //checkAuth, isAdminOrCustomer
             cardNumber: req.body.cardNumber
         })
         payment.save().then(saver => console.log(saver)).catch(errormsg)
+        sendMail1(req.userData.email, req.body.address, req.body.pin, req.body.state)
         orderModel.findByIdAndUpdate(req.body.orderId, { $set: { paymentStatus: 'CONFIRMED' } }, { new: true }).then(doc => {
             res.status(200).json({
                 order: {
