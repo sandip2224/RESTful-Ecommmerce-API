@@ -41,13 +41,16 @@
    npm run dev
    ```
    
-<!-- ## 🔱 API Endpoints
+## 🔱 API Endpoints
 
 ### Products
 
 ```bash
 GET    /api/products
 GET    /api/products/:productId
+GET    /api/products/reviews
+GET    /api/products/reviews/:productId
+POST   /api/products/reviews
 POST   /api/products
 PATCH  /api/products/:productId
 DELETE /api/products/:productId
@@ -80,6 +83,7 @@ To process pending payments on existing orders:
 
 ```bash
 GET  /api/payments
+GET  /api/payments/:paymentId
 POST /api/payments/:orderId
 ```
 
@@ -96,9 +100,6 @@ To login a user and generate a JWT token for accessing protected routes:
 ```bash
 POST /api/users/login
 ```
- -->
-> Note: Postman documentation can be found here: [api.sandip2224.in/ecommercex](https://documenter.getpostman.com/view/12943951/UV5WCHsP)
-
 <!-- ## 🔍 UML Class Diagram
 
 ![UML Diagram](media/uml.png) -->
@@ -107,12 +108,9 @@ POST /api/users/login
 
 - [x] Add seller, customer, admin levels for protected endpoints
 - [x] Add product image upload functionality with POST route (+testing done)
-- [ ] Admin Working Coupon Access (GET+POST+PATCH+DELETE)
 - [x] Payment route should accept home address, pincode, state, country (+testing done)
-- [ ] Delivery guy assignment on paid orders with email confirmation
-- [ ] 1 coupon generation on each order above Rs.599 for future orders (approx $8)
-- [ ] Feedback route (on a scale of 1 to 5 stars) + feedbacks can be accessed on a public endpoint
-- [ ] Add testing components using Jest and Supertest to replace Postman
+- [x] Add testing components using Jest and Supertest to replace Postman (On current endpoints)
+- [ ] Email confirmation on paid orders (Nodemailer integration)
 
 ## 🎴 License
 
