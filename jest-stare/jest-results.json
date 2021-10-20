@@ -2,13 +2,13 @@
   "numFailedTestSuites": 0,
   "numFailedTests": 0,
   "numPassedTestSuites": 4,
-  "numPassedTests": 13,
+  "numPassedTests": 14,
   "numPendingTestSuites": 0,
   "numPendingTests": 0,
   "numRuntimeErrorTestSuites": 0,
   "numTodoTests": 0,
   "numTotalTestSuites": 4,
-  "numTotalTests": 13,
+  "numTotalTests": 14,
   "openHandles": [],
   "snapshot": {
     "added": 0,
@@ -26,61 +26,9 @@
     "unmatched": 0,
     "updated": 0
   },
-  "startTime": 1634720765753,
+  "startTime": 1634721046233,
   "success": false,
   "testResults": [
-    {
-      "leaks": false,
-      "numFailingTests": 0,
-      "numPassingTests": 2,
-      "numPendingTests": 0,
-      "numTodoTests": 0,
-      "openHandles": [],
-      "perfStats": {
-        "end": 1634720788225,
-        "runtime": 17037,
-        "slow": true,
-        "start": 1634720771188
-      },
-      "skipped": false,
-      "snapshot": {
-        "added": 0,
-        "fileDeleted": false,
-        "matched": 0,
-        "unchecked": 0,
-        "uncheckedKeys": [],
-        "unmatched": 0,
-        "updated": 0
-      },
-      "testFilePath": "C:\\Users\\User\\Desktop\\EcommerceX-REST-API\\__tests__\\userRoute.test.js",
-      "testResults": [
-        {
-          "ancestorTitles": [],
-          "duration": 5335,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "GET /api/users",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 0,
-          "status": "passed",
-          "title": "GET /api/users"
-        },
-        {
-          "ancestorTitles": [],
-          "duration": 275,
-          "failureDetails": [],
-          "failureMessages": [],
-          "fullName": "GET /api/users/:userId",
-          "invocations": 1,
-          "location": null,
-          "numPassingAsserts": 0,
-          "status": "passed",
-          "title": "GET /api/users/:userId"
-        }
-      ],
-      "failureMessage": null
-    },
     {
       "leaks": false,
       "numFailingTests": 0,
@@ -89,10 +37,10 @@
       "numTodoTests": 0,
       "openHandles": [],
       "perfStats": {
-        "end": 1634720788231,
-        "runtime": 17334,
+        "end": 1634721060361,
+        "runtime": 12587,
         "slow": true,
-        "start": 1634720770897
+        "start": 1634721047774
       },
       "skipped": false,
       "snapshot": {
@@ -108,7 +56,7 @@
       "testResults": [
         {
           "ancestorTitles": [],
-          "duration": 2586,
+          "duration": 2410,
           "failureDetails": [],
           "failureMessages": [],
           "fullName": "Testing to see if Jest works",
@@ -120,7 +68,7 @@
         },
         {
           "ancestorTitles": [],
-          "duration": 2798,
+          "duration": 2945,
           "failureDetails": [],
           "failureMessages": [],
           "fullName": "GET /api/products",
@@ -132,7 +80,7 @@
         },
         {
           "ancestorTitles": [],
-          "duration": 257,
+          "duration": 258,
           "failureDetails": [],
           "failureMessages": [],
           "fullName": "GET /api/products/:productId",
@@ -153,10 +101,10 @@
       "numTodoTests": 0,
       "openHandles": [],
       "perfStats": {
-        "end": 1634720789148,
-        "runtime": 18308,
+        "end": 1634721060979,
+        "runtime": 13397,
         "slow": true,
-        "start": 1634720770840
+        "start": 1634721047582
       },
       "skipped": false,
       "snapshot": {
@@ -172,7 +120,7 @@
       "testResults": [
         {
           "ancestorTitles": [],
-          "duration": 5715,
+          "duration": 5736,
           "failureDetails": [],
           "failureMessages": [],
           "fullName": "GET /api/payments",
@@ -184,7 +132,7 @@
         },
         {
           "ancestorTitles": [],
-          "duration": 529,
+          "duration": 497,
           "failureDetails": [],
           "failureMessages": [],
           "fullName": "GET /api/payments/:paymentId",
@@ -196,7 +144,7 @@
         },
         {
           "ancestorTitles": [],
-          "duration": 334,
+          "duration": 362,
           "failureDetails": [],
           "failureMessages": [],
           "fullName": "POST /api/payments",
@@ -212,15 +160,79 @@
     {
       "leaks": false,
       "numFailingTests": 0,
+      "numPassingTests": 3,
+      "numPendingTests": 0,
+      "numTodoTests": 0,
+      "openHandles": [],
+      "perfStats": {
+        "end": 1634721061486,
+        "runtime": 13783,
+        "slow": true,
+        "start": 1634721047703
+      },
+      "skipped": false,
+      "snapshot": {
+        "added": 0,
+        "fileDeleted": false,
+        "matched": 0,
+        "unchecked": 0,
+        "uncheckedKeys": [],
+        "unmatched": 0,
+        "updated": 0
+      },
+      "testFilePath": "C:\\Users\\User\\Desktop\\EcommerceX-REST-API\\__tests__\\userRoute.test.js",
+      "testResults": [
+        {
+          "ancestorTitles": [],
+          "duration": 5386,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "GET /api/users",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 0,
+          "status": "passed",
+          "title": "GET /api/users"
+        },
+        {
+          "ancestorTitles": [],
+          "duration": 270,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "GET /api/users/:userId",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 0,
+          "status": "passed",
+          "title": "GET /api/users/:userId"
+        },
+        {
+          "ancestorTitles": [],
+          "duration": 814,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "DELETE /api/user/:userId",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 0,
+          "status": "passed",
+          "title": "DELETE /api/user/:userId"
+        }
+      ],
+      "failureMessage": null
+    },
+    {
+      "leaks": false,
+      "numFailingTests": 0,
       "numPassingTests": 5,
       "numPendingTests": 0,
       "numTodoTests": 0,
       "openHandles": [],
       "perfStats": {
-        "end": 1634720790890,
-        "runtime": 20311,
+        "end": 1634721062948,
+        "runtime": 15357,
         "slow": true,
-        "start": 1634720770579
+        "start": 1634721047591
       },
       "skipped": false,
       "snapshot": {
@@ -236,7 +248,7 @@
       "testResults": [
         {
           "ancestorTitles": [],
-          "duration": 5457,
+          "duration": 5713,
           "failureDetails": [],
           "failureMessages": [],
           "fullName": "GET /api/orders",
@@ -248,7 +260,7 @@
         },
         {
           "ancestorTitles": [],
-          "duration": 514,
+          "duration": 530,
           "failureDetails": [],
           "failureMessages": [],
           "fullName": "GET /api/orders/:orderId",
@@ -260,7 +272,7 @@
         },
         {
           "ancestorTitles": [],
-          "duration": 712,
+          "duration": 635,
           "failureDetails": [],
           "failureMessages": [],
           "fullName": "POST /api/orders",
@@ -272,7 +284,7 @@
         },
         {
           "ancestorTitles": [],
-          "duration": 759,
+          "duration": 800,
           "failureDetails": [],
           "failureMessages": [],
           "fullName": "PATCH /api/orders/:orderId",
@@ -284,7 +296,7 @@
         },
         {
           "ancestorTitles": [],
-          "duration": 820,
+          "duration": 797,
           "failureDetails": [],
           "failureMessages": [],
           "fullName": "DELETE /api/orders/:id",
@@ -3805,7 +3817,7 @@
         "9": 4,
         "10": 1,
         "11": 1,
-        "12": 3,
+        "12": 5,
         "13": 1,
         "14": 1,
         "15": 0,
@@ -3835,7 +3847,7 @@
         "0": 0,
         "1": 1,
         "2": 1,
-        "3": 3,
+        "3": 5,
         "4": 1,
         "5": 1,
         "6": 1,
@@ -5255,9 +5267,9 @@
         "28": 0,
         "29": 0,
         "30": 4,
-        "31": 0,
-        "32": 0,
-        "33": 0,
+        "31": 1,
+        "32": 1,
+        "33": 1,
         "34": 0,
         "35": 4,
         "36": 0,
@@ -5292,8 +5304,8 @@
         "6": 0,
         "7": 0,
         "8": 0,
-        "9": 0,
-        "10": 0,
+        "9": 1,
+        "10": 1,
         "11": 0,
         "12": 0,
         "13": 0,
@@ -5320,7 +5332,7 @@
           0
         ],
         "4": [
-          0,
+          1,
           0
         ],
         "5": [

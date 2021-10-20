@@ -23,3 +23,14 @@ test("GET /api/users/:userId", async () => {
             expect(response.body.level).toBe('seller')
         })
 });
+
+test("DELETE /api/user/:userId", async () => {
+    const user = await userModel.create({ "email": "tester@gmail.com", "password": "tester", "level": "customer" })
+
+    await supertest(app)
+        .delete("/api/users/" + user.id)
+        .expect(200)
+        .then(async () => {
+            expect(await userModel.findOne({ _id: user.id })).toBeFalsy();
+        });
+});
