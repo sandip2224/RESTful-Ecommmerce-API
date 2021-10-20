@@ -91,7 +91,7 @@ router.get('/:paymentId', (req, res) => {  // checkAuth
     }
 })
 
-router.post('/', checkAuth, isAdminOrCustomer, async (req, res) => {  //checkAuth, isAdminOrCustomer
+router.post('/', async (req, res) => {  //checkAuth, isAdminOrCustomer
     orderModel.findById(req.body.orderId).exec().then(doc => {
         if (!doc) {
             return res.status(404).json({
@@ -104,7 +104,7 @@ router.post('/', checkAuth, isAdminOrCustomer, async (req, res) => {  //checkAut
                 message: 'Invalid request! Payment already processed!!'
             })
         }
-        if (!req.body || !req.body.address || !req.body.pin || !req.body.state || !req.body.cardNumber) {
+        if (!req.body || !req.body.address || !req.body.pin || !req.body.state || !req.body.cardNumber || !req.body.email) {
             return res.status(404).json({
                 error: 'Required fields are missing!!'
             })
@@ -117,7 +117,7 @@ router.post('/', checkAuth, isAdminOrCustomer, async (req, res) => {  //checkAut
             cardNumber: req.body.cardNumber
         })
         payment.save().then(saver => console.log(saver)).catch(errormsg)
-        sendMail1(req.userData.email, req.body.address, req.body.pin, req.body.state)
+        sendMail1(req.body.email, req.body.address, req.body.pin, req.body.state)
         orderModel.findByIdAndUpdate(req.body.orderId, { $set: { paymentStatus: 'CONFIRMED' } }, { new: true }).then(doc => {
             res.status(200).json({
                 order: {

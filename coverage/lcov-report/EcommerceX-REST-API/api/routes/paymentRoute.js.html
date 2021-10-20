@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">69.44% </span>
+                <span class="strong">68.42% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>25/36</span>
+                <span class='fraction'>26/38</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">26.66% </span>
+                <span class="strong">25% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>4/15</span>
+                <span class='fraction'>4/16</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">71.42% </span>
+                <span class="strong">70.27% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>25/35</span>
+                <span class='fraction'>26/37</span>
             </div>
         
             
@@ -200,11 +200,14 @@
 <a name='L141'></a><a href='#L141'>141</a>
 <a name='L142'></a><a href='#L142'>142</a>
 <a name='L143'></a><a href='#L143'>143</a>
-<a name='L144'></a><a href='#L144'>144</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">4x</span>
+<a name='L144'></a><a href='#L144'>144</a>
+<a name='L145'></a><a href='#L145'>145</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
@@ -223,12 +226,10 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -318,6 +319,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -350,6 +352,8 @@ const mongoose = require('mongoose')
 const orderModel = require('../models/Order')
 const paymentModel = require('../models/Payment')
 &nbsp;
+const sendMail1 = require('../utils/sendMail')
+&nbsp;
 const checkAuth = require('../middleware/checkAuth')
 &nbsp;
 const {
@@ -366,8 +370,6 @@ router.get('/', (req, res) =&gt; {  // checkAuth
     paymentModel.find().populate('orderId')
         .exec()
         .then(docs =&gt; {
-            // res.status(200).json(docs)
-            // const docs = docs.filter(doc =&gt; doc.paymentStatus === 'CONFIRMED')
             res.status(200).json({
                 count: docs.length,
                 payments: docs.map(doc =&gt; {
@@ -449,7 +451,7 @@ router.post('/', async (req, res) =&gt; {  //checkAuth, isAdminOrCustomer
                 message: 'Invalid request! Payment already processed!!'
             })
         }
-<span class="cstat-no" title="statement not covered" >        if (!req.body || !req.body.address || !req.body.pin || !req.body.state || !req.body.cardNumber) {</span>
+<span class="cstat-no" title="statement not covered" >        if (!req.body || !req.body.address || !req.body.pin || !req.body.state || !req.body.cardNumber || !req.body.email) {</span>
 <span class="cstat-no" title="statement not covered" >            return res.status(404).json({</span>
                 error: 'Required fields are missing!!'
             })
@@ -462,6 +464,7 @@ router.post('/', async (req, res) =&gt; {  //checkAuth, isAdminOrCustomer
             cardNumber: req.body.cardNumber
         })
 <span class="cstat-no" title="statement not covered" >        payment.save().then(<span class="fstat-no" title="function not covered" >sa</span>ver =&gt; <span class="cstat-no" title="statement not covered" >console.log(saver))</span>.catch(errormsg)</span>
+<span class="cstat-no" title="statement not covered" >        sendMail1(req.body.email, req.body.address, req.body.pin, req.body.state)</span>
 <span class="cstat-no" title="statement not covered" >        orderModel.findByIdAndUpdate(req.body.orderId, { $set: { paymentStatus: 'CONFIRMED' } }, { new: true }).then(<span class="fstat-no" title="function not covered" >do</span>c =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >            res.status(200).json({</span>
                 order: {
@@ -493,7 +496,7 @@ module.exports = router</pre></td></tr></table></pre>
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Oct 20 2021 14:41:03 GMT+0530 (India Standard Time)
+                at Wed Oct 20 2021 22:24:27 GMT+0530 (India Standard Time)
             </div>
         </div>
         <script src="../../../prettify.js"></script>
