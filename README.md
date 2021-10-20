@@ -104,9 +104,9 @@ POST /api/users/login
 ## 💡 Goals
 
 - [x] Add seller, customer, admin levels for protected endpoints
-- [x] Add product image upload functionality with POST route (testing done)
+- [x] Add product image upload functionality with POST route (+testing done)
 - [ ] Admin Working Coupon Access (GET+POST+PATCH+DELETE)
-- [ ] Payment route should accept home address, pincode, state, country
+- [x] Payment route should accept home address, pincode, state, country (+testing done)
 - [ ] Delivery guy assignment on paid orders with email confirmation
 - [ ] 1 coupon generation on each order above Rs.599 for future orders (approx $8)
 - [ ] Feedback route (on a scale of 1 to 5 stars) + feedbacks can be accessed on a public endpoint
