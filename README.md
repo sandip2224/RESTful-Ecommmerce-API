@@ -1,5 +1,7 @@
 <h2 align="center">E-CommerceX REST API 🛒</h2>
 
+> Currently under construction. Of course you can explore what I've built so far. Just follow some basic steps mentioned below.
+
 ## 🔄 Built with
 
 - NodeJS
