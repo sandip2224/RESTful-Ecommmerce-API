@@ -108,11 +108,9 @@ POST /api/users/login
 
 - [x] Add seller, customer, admin levels for protected endpoints
 - [x] Add product image upload functionality with POST route (+testing done)
-- [ ] Admin Working Coupon Access (GET+POST+PATCH+DELETE) 
 - [x] Payment route should accept home address, pincode, state, country (+testing done)
-- [ ] Delivery guy assignment on paid orders with email confirmation
-- [ ] Feedback route (on a scale of 1 to 5 stars) + feedbacks can be accessed on a public endpoint [Requires new model]
 - [x] Add testing components using Jest and Supertest to replace Postman (On current endpoints)
+- [ ] Email confirmation on paid orders (Nodemailer integration)
 
 ## 🎴 License
 
