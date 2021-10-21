@@ -109,7 +109,7 @@ POST /api/users/login
 - [x] Add product image upload functionality with POST route (+testing done)
 - [x] Payment route should accept home address, pincode, state, country (+testing done)
 - [x] Add testing components using Jest and Supertest to replace Postman (On current endpoints)
-- [ ] Email confirmation on paid orders (Nodemailer integration)
+- [x] Email confirmation on paid orders (Nodemailer integration)
 
 ## 🎴 License
 
