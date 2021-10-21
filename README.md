@@ -2,6 +2,8 @@
 
 > Currently under construction. Of course you can explore what I've built so far. Just follow some basic steps mentioned below.
 
+> Authentication middlewares are currently removed from endpoints for testing purpose (but are added as comments next to each endpoint)
+
 ## 🔄 Built with
 
 - NodeJS
