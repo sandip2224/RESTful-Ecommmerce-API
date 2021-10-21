@@ -48,9 +48,6 @@
 ```bash
 GET    /api/products
 GET    /api/products/:productId
-GET    /api/products/reviews
-GET    /api/products/reviews/:productId
-POST   /api/products/reviews
 POST   /api/products
 PATCH  /api/products/:productId
 DELETE /api/products/:productId
