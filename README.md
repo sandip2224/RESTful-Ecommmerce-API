@@ -110,7 +110,8 @@ POST /api/users/login
 - [x] Payment route should accept home address, pincode, state, country (+testing done)
 - [x] Add testing components using Jest and Supertest to replace Postman (On current endpoints)
 - [x] Email confirmation on paid orders (Nodemailer integration)
-- [ ] Add express rate limiter on all routes to prevent DDOS
+- [ ] Add express rate limiter on all routes to prevent DDOS [enhancement]
+- [ ] Replace promises with async/await in routes handlers
 
 ## 🎴 License
 
