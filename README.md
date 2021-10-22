@@ -40,7 +40,7 @@
  #### Start the server locally at _localhost:3000_ using
 
    ```bash
-   npm run dev
+   nodemon server
    ```
    
 ## 🔱 API Endpoints
