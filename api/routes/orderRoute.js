@@ -54,9 +54,9 @@ router
   .post(async (req, res) => {
     // checkAuth, isCustomer
     try {
-      const doc = await productModel.findById(req.body.productId);
+      const product = await productModel.findById(req.body.productId);
 
-      if (!doc) {
+      if (!product) {
         return res.status(404).json({
           message: 'Product not found!!',
         });
@@ -65,27 +65,28 @@ router
       const order = new orderModel({
         productId: req.body.productId,
         quantity: req.body.quantity,
-        totalPrice: doc.price * req.body.quantity,
+        totalPrice: product.price * req.body.quantity,
       });
-      const result = await order.save();
+      await order.save();
 
       res.status(201).json({
         message: 'Order created successfully!',
         createdOrder: {
-          productId: result.productId,
-          quantity: result.quantity,
-          productImage: result.productImage,
+          productId: order.productId,
+          quantity: order.quantity,
+          productImage: order.productImage,
         },
-        totalPrice: result.totalPrice,
-        createdAt: result.createdAt,
-        paymentStatus: result.paymentStatus,
-        _id: result._id,
+        totalPrice: order.totalPrice,
+        createdAt: order.createdAt,
+        paymentStatus: order.paymentStatus,
+        _id: order._id,
         request: {
           type: 'POST',
-          url: 'http://localhost:3000/api/payments/' + result._id,
+          url: 'http://localhost:3000/api/payments/' + order._id,
         },
       });
     } catch (err) {
+      console.log(err);
       errormsg(err);
     }
   });
