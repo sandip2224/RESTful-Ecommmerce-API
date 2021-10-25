@@ -1,5 +1,7 @@
 const express = require('express');
 const router = express.Router();
+const apicache = require('apicache');
+let cache = apicache.middleware
 const mongoose = require('mongoose');
 
 const orderModel = require('../models/Order');
@@ -20,7 +22,7 @@ const errormsg = (err) => {
 
 router
   .route('/')
-  .get(async (req, res) => {
+  .get(cache('1 minute'), async (req, res) => {
     //checkAuth, isCustomer
     try {
       const docs = await orderModel.find().populate('productId').exec();
@@ -93,7 +95,7 @@ router
 
 router
   .route('/:orderId')
-  .get(async (req, res) => {
+  .get(cache('1 minute'), async (req, res) => {
     // checkAuth, isCustomer
     if (!mongoose.isValidObjectId(req.params.orderId)) {
       return res.status(422).json({
