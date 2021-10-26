@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const apicache = require('apicache');
-let cache = apicache.middleware
 const mongoose = require('mongoose');
 const multer = require('multer');
+const apicache = require('apicache');
+let cache = apicache.middleware
 
 const productModel = require('../models/Product');
 

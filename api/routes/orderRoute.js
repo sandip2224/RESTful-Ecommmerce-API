@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
+const mongoose = require('mongoose');
 const apicache = require('apicache');
 let cache = apicache.middleware
-const mongoose = require('mongoose');
 
 const orderModel = require('../models/Order');
 const productModel = require('../models/Product');

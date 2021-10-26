@@ -1,8 +1,9 @@
 const express = require('express');
 const router = express.Router();
+const mongoose = require('mongoose');
 const apicache = require('apicache');
 let cache = apicache.middleware
-const mongoose = require('mongoose');
+
 
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
