@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
+const apicache = require('apicache');
+let cache = apicache.middleware
 
 const orderModel = require('../models/Order');
 const paymentModel = require('../models/Payment');
@@ -17,7 +19,7 @@ const errormsg = (err) => {
   });
 };
 
-router.get('/', async (req, res) => {
+router.get('/', cache('1 minute'), async (req, res) => {
   // checkAuth
   try {
     const docs = await paymentModel.find().populate('orderId').exec();
@@ -51,7 +53,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-router.get('/:paymentId', async (req, res) => {
+router.get('/:paymentId', cache('1 minute'), async (req, res) => {
   // checkAuth
   try {
     const { paymentId } = req.params;

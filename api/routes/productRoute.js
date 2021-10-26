@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 const multer = require('multer');
+const apicache = require('apicache');
+let cache = apicache.middleware
 
 const productModel = require('../models/Product');
 
@@ -46,7 +48,7 @@ const upload = multer({
 
 router
   .route('/')
-  .get(async (req, res) => {
+  .get(cache('1 minute'), async (req, res) => {
     try {
       const products = await productModel.find();
       const response = {
@@ -115,7 +117,7 @@ router
 
 router
   .route('/:productId')
-  .get(async (req, res) => {
+  .get(cache('1 minute'), async (req, res) => {
     try {
       const { productId } = req.params;
       if (!mongoose.isValidObjectId(productId)) {

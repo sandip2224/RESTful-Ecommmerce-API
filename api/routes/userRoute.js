@@ -1,6 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
+const apicache = require('apicache');
+let cache = apicache.middleware
+
 
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
@@ -13,7 +16,7 @@ const errormsg = (err) => {
   });
 };
 
-router.get('/', async (req, res) => {
+router.get('/',cache('1 minute'), async (req, res) => {
   try {
     const users = await userModel.find().exec();
 
@@ -37,7 +40,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-router.get('/:userId', async (req, res) => {
+router.get('/:userId', cache('1 minute'), async (req, res) => {
   try {
     const { userId } = req.params;
     if (!mongoose.isValidObjectId(userId)) {
