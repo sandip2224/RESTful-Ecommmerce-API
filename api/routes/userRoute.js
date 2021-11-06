@@ -139,7 +139,7 @@ router.delete('/:userId', async (req, res) => {
 
 router.post('/register', async (req, res) => {
   try {
-    const user = await userModel.findOne({ email: req.body.email });
+    const user = await userModel.findOne({email: { $eq: req.body.email } });
 
     if (user) {
       return res.status(409).json({
@@ -172,7 +172,7 @@ router.post('/register', async (req, res) => {
 
 router.post('/login', async (req, res) => {
   try {
-    const user = await userModel.findOne({ email: req.body.email });
+    const user = await userModel.findOne({ email: { $eq: req.body.email } });
 
     if (!user) {
       return res.status(404).json({
