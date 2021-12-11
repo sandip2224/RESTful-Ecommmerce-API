@@ -1,4 +1,5 @@
 const express = require("express");
+const helmet = require("helmet");
 const colors = require("colors");
 const path = require("path");
 const rateLimit = require("express-rate-limit");
@@ -20,6 +21,7 @@ const limiter = rateLimit({
 
 //  apply to all requests
 app.use(limiter);
+app.use(helmet());
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
